@@ -1,6 +1,0 @@
-node_modules
-dist
-.yarn
-.yarn.lock
-.vscode
-.eslint.config.js
