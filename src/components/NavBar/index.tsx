@@ -5,10 +5,10 @@ import SearchBar from '../SearchBar'
 
 function NavBar() {
   return (
-    <nav className='flex flex-row justify-between  bg-[#00c0f3] w-full h-20 items-center'>
+    <nav className='flex flex-row justify-between  bg-normalBlue w-full h-20 items-center'>
       <img src={logo} className='w-[173px] h-auto ml-20 my-2' />
 
-      <div className='flex flex-row pl-14 justify-between gap-16 mr-auto uppercase font-black text-white'>
+      <div className='flex flex-row pl-14 justify-between gap-16 mr-auto uppercase font-black text-white font-bungee'>
         <Link to='/'>Phim</Link>
 
         <Link to='*'>Spixal</Link>
