@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../assets/image/logo.png'
+import logo from '../../assets/images/logo.png'
 import { FaUser, FaShoppingBag } from 'react-icons/fa'
 import SearchBar from '../SearchBar'
 
