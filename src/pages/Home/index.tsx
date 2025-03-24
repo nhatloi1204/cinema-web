@@ -1,6 +1,9 @@
 import Carousel from '../../components/Carousel'
+import QuickBooking from '../../components/QuickBooking'
 import { useState } from 'react'
-import MovieCard from '../../components/MovieCard'
+import { motion, AnimatePresence } from 'framer-motion'
+import MovieSlider from '../../components/MovieSlider'
+import { Movie } from '../../types/types'
 
 const slides = [
   '/src/assets/images/banner1.png',
@@ -14,11 +17,46 @@ const movies = ['Avengers', 'Batman', 'Spider-Man', 'Interstellar']
 const dates = ['24/03/2025', '25/03/2025', '26/03/2025']
 const times = ['10:00 AM', '1:00 PM', '4:00 PM', '7:00 PM']
 
+const moviesNowShowing: Movie[] = [
+  {
+    id: 1,
+    title: 'Nhat Loi',
+    image: '/src/assets/images/banner1.png',
+    genre: 'Tâm lý',
+    duration: '100 phút',
+    releaseDate: '24-03-2025',
+  },
+  {
+    id: 2,
+    title: 'Nhat Loi',
+    image: '/src/assets/images/banner2.png',
+    genre: 'Hoạt hình',
+    duration: '100 phút',
+    releaseDate: '24-03-2025',
+  },
+  {
+    id: 3,
+    title: 'Nhat Loi',
+    image: '/src/assets/images/banner1.png',
+    genre: 'Hành động',
+    duration: '100 phút',
+    releaseDate: '24-03-2025',
+  },
+  {
+    id: 4,
+    title: 'Nhat Loi',
+    image: '/src/assets/images/banner2.png',
+    genre: 'Kinh dị',
+    duration: '100 phút',
+    releaseDate: '24-03-2025',
+  },
+]
+
+const moviesComingSoon: Movie[] = []
+const moviesSpecialShows: Movie[] = []
+
 function Home() {
-  const [selectedTheater, setSelectedTheater] = useState('')
-  const [selectedMovie, setSelectedMovie] = useState('')
-  const [selectedDate, setSelectedDate] = useState('')
-  const [selectedTime, setSelectedTime] = useState('')
+  const [activeTab, setActiveTab] = useState<string>('nowShowing')
 
   return (
     <>
@@ -38,122 +76,87 @@ function Home() {
       {/* Carousel */}
 
       {/* Quick Booking */}
-      <section className='w-full h-24 bg-red-500 '>
-        <div className='flex items-center justify-around  h-full px-10'>
-          <div className='flex gap-10'>
-            <img
-              src='src/assets/images/miniLogo.png'
-              alt='miniLogo'
-              className='w-12 h-auto shrink-0'
-            />
-
-            <p className='font-bungee uppercase text-white text-xl leading-5'>
-              Đặt Vé <br /> Nhanh
-            </p>
-          </div>
-
-          {/* Dropdowns */}
-          <div className='flex items-center gap-4'>
-            {/* Theater Selection */}
-            <select
-              className='bg-white text-blue-500 font-bold px-4 py-2 rounded-full shadow-md hover:bg-gray-200 transition focus:outline-0'
-              value={selectedTheater}
-              onChange={e => setSelectedTheater(e.target.value)}
-            >
-              <option value=''>Chọn rạp</option>
-              {theaters.map((theater, index) => (
-                <option key={index} value={theater}>
-                  {theater}
-                </option>
-              ))}
-            </select>
-
-            {/* Movie Selection */}
-            <select
-              className='bg-white text-blue-500 font-bold px-4 py-2 rounded-full shadow-md hover:bg-gray-200 transition focus:outline-0'
-              value={selectedMovie}
-              onChange={e => setSelectedMovie(e.target.value)}
-            >
-              <option value=''>Chọn phim</option>
-              {movies.map((movie, index) => (
-                <option key={index} value={movie}>
-                  {movie}
-                </option>
-              ))}
-            </select>
-
-            {/* Date Selection */}
-            <select
-              className='bg-white text-blue-500 font-bold px-4 py-2 rounded-full shadow-md hover:bg-gray-200 transition focus:outline-0'
-              value={selectedDate}
-              onChange={e => setSelectedDate(e.target.value)}
-            >
-              <option value=''>Chọn ngày</option>
-              {dates.map((date, index) => (
-                <option key={index} value={date}>
-                  {date}
-                </option>
-              ))}
-            </select>
-
-            {/* Time Selection */}
-            <select
-              className='bg-white text-blue-500 font-bold px-4 py-2 rounded-full shadow-md hover:bg-gray-200 transition focus:outline-0'
-              value={selectedTime}
-              onChange={e => setSelectedTime(e.target.value)}
-            >
-              <option value=''>Chọn giờ</option>
-              {times.map((time, index) => (
-                <option key={index} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Book Now Button */}
-          <button
-            className='bg-white text-blue-500 font-bold px-6 py-2 rounded-full shadow-md hover:bg-gray-200 transition'
-            disabled={
-              !selectedTheater ||
-              !selectedMovie ||
-              !selectedDate ||
-              !selectedTime
-            }
-          >
-            Đặt Ngay
-          </button>
-        </div>
-      </section>
+      <div>
+        <QuickBooking
+          theaters={theaters}
+          movies={movies}
+          dates={dates}
+          times={times}
+        />
+      </div>
       {/* Quick Booking */}
 
-      {/* List Movie Card */}
-      <div className='w-full'>
-        <div className='flex gap-20 justify-center'>
-          <MovieCard
-            image='https://via.placeholder.com/150'
-            movieName='The Great Adventure'
-            type='Action'
-            duration='2h 15m'
-            openingDay={new Date('2025-05-10')} // ✅ Pass a real Date object
-          />
-          <MovieCard
-            image='https://via.placeholder.com/150'
-            movieName='The Great Adventure'
-            type='Action'
-            duration='2h 15m'
-            openingDay={new Date('2025-05-10')} // ✅ Pass a real Date object
-          />
-          <MovieCard
-            image='https://via.placeholder.com/150'
-            movieName='The Great Adventure'
-            type='Action'
-            duration='2h 15m'
-            openingDay={new Date('2025-05-10')} // ✅ Pass a real Date object
-          />
-        </div>
+      <div className='flex justify-center gap-6 px-36 pt-10 bg-white'>
+        <button
+          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-normalBlue ${
+            activeTab === 'nowShowing'
+              ? 'bg-normalBlue text-white'
+              : 'bg-gray-200'
+          }`}
+          onClick={() => setActiveTab('nowShowing')}
+        >
+          Phim Đang Chiếu
+        </button>
+        <button
+          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-normalBlue ${
+            activeTab === 'comingSoon'
+              ? 'bg-normalBlue text-white'
+              : 'bg-gray-200'
+          }`}
+          onClick={() => setActiveTab('comingSoon')}
+        >
+          Phim Sắp Chiếu
+        </button>
+        <button
+          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-normalBlue ${
+            activeTab === 'specialShows'
+              ? 'bg-normalBlue text-white'
+              : 'bg-gray-200'
+          }`}
+          onClick={() => setActiveTab('specialShows')}
+        >
+          Suất Chiếu Đặc Biệt
+        </button>
       </div>
-      {/* List Movie Card */}
+
+      <div className='bg-white p-6 rounded-lg shadow-md overflow-hidden min-h-[600px]'>
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            {activeTab === 'nowShowing' && (
+              <MovieSlider title='' movies={moviesNowShowing} />
+            )}
+            {activeTab === 'comingSoon' &&
+              (moviesComingSoon.length > 0 ? (
+                <MovieSlider title='Phim Sắp Chiếu' movies={moviesComingSoon} />
+              ) : (
+                <div className='h-full flex items-center justify-center'>
+                  <p className='text-center text-gray-500'>
+                    🟡 Hiện tại chưa có phim sắp chiếu.
+                  </p>
+                </div>
+              ))}
+            {activeTab === 'specialShows' &&
+              (moviesSpecialShows.length > 0 ? (
+                <MovieSlider
+                  title='Suất Chiếu Đặc Biệt'
+                  movies={moviesSpecialShows}
+                />
+              ) : (
+                <div className='h-full flex items-center justify-center'>
+                  <p className='text-center text-gray-500'>
+                    🔴 Hiện tại chưa có suất chiếu đặc biệt.
+                  </p>
+                </div>
+              ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </>
   )
 }
