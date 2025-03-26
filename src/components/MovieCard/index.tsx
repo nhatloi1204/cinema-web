@@ -2,7 +2,7 @@ import { Movie } from '../../types/types'
 
 function MovieCard({ image, title, genre, duration, releaseDate }: Movie) {
   return (
-    <div className='w-64 rounded shadow-lg'>
+    <div className='w-64 rounded rounded-b-3xl [box-shadow:4px_-4px_10px_rgba(0,0,0,0.15)] bg-white '>
       <img
         src={image}
         alt={title}
@@ -12,7 +12,7 @@ function MovieCard({ image, title, genre, duration, releaseDate }: Movie) {
       <p className='text-gray-600 px-4'>Thể loại: {genre}</p>
       <p className='text-gray-600 px-4'>Thời lượng: {duration}</p>
       <p className='text-gray-600 px-4'>Khởi chiếu: {releaseDate}</p>
-      <button className='mt-2 w-full bg-blue-500 text-white font-bold px-4 py-2 rounded-full hover:bg-blue-600 transition px-4'>
+      <button className='mt-2 w-full bg-blue-500 text-white font-bold py-2 rounded-full hover:bg-blue-600 transition px-4'>
         Đặt vé
       </button>
     </div>
