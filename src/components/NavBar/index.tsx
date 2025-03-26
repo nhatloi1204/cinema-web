@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../assets/image/logo.png'
+import logo from '../../assets/images/logo.png'
 import { FaUser, FaShoppingBag } from 'react-icons/fa'
 import SearchBar from '../SearchBar'
 
@@ -8,7 +8,7 @@ function NavBar() {
     <nav className='flex flex-row justify-between  bg-normalBlue w-full h-20 items-center'>
       <img src={logo} className='w-[173px] h-auto ml-20 my-2' />
 
-      <div className='flex flex-row pl-14 justify-between gap-16 mr-auto uppercase font-black text-white font-bungee'>
+      <div className='flex flex-row pl-14 justify-between gap-16 mr-auto uppercase text-white font-bungee'>
         <Link to='/'>Phim</Link>
 
         <Link to='*'>Spixal</Link>
