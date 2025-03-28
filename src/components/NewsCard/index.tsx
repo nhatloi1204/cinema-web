@@ -12,7 +12,7 @@ function NewsCard({ image, title }: newsProps) {
           alt='image'
           className='rounded object-cover h-80 w-60'
         />
-        <div className='font-bold text-normalBlue w-60 pt-4'>{title}</div>
+        <div className='font-bold text-blue-normal w-60 pt-4'>{title}</div>
       </div>
     </>
   )

@@ -19,7 +19,7 @@ export default function QuickBooking({
   const [selectedTime, setSelectedTime] = useState<string>('')
 
   return (
-    <section className='w-full h-24 bg-normalBlue '>
+    <section className='w-full h-24 bg-blue-normal '>
       <div className='flex items-center justify-around  h-full px-10'>
         <div className='flex gap-10'>
           <img

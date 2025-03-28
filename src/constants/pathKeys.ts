@@ -7,6 +7,8 @@ const pathKeys = {
   EVENTS: '/events',
   ABOUT_US: '/about-us',
   PROFILE: '/profile',
+  CONTACT: '/contact',
+  SHOP: '/shop',
 
   // Admin Routes (Commented for now)
   // ADMIN_DASHBOARD: "/admin/dashboard",

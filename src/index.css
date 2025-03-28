@@ -2,7 +2,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import 'tailwindcss';
 @theme {
-  --color-normalBlue: #00c0f3;
+  /* Color */
+  --color-blue-normal: #00c0f3;
+  --color-blue-normalHover: #00addb;
+  --color-blue-normalActive: #009ac2;
+  --color-blue-light: #e6f9fe;
+  --color-blue-lightHover: #d9f6fd;
+  --color-blue-lightActive: #b0ebfb;
+  --color-yellow-light: #fffcf3;
+  --color-yellow-lightHover: #fffbed;
+  --color-yellow-lightActive: #fff6da;
+  --color-yellow-normal: #ffe189;
+  --color-yellow-normalHover: #e6cb7b;
+  --color-yellow-normalActive: #ccb46e;
+  --color-red-light: #fef5f5;
+  --color-red-lightHover: #fef0ef;
+  --color-red-lightActive: #fcdfde;
+  --color-red-normal: #f69896;
+  --color-red-normalHover: #dd8987;
+  --color-red-normalActive: #c57a78;
+  /* Font */
   --font-bungee: 'Bungee';
 }
 

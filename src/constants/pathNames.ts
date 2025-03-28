@@ -1,12 +1,17 @@
 const pathNames = {
-  HOME: 'Home',
-  LOGIN: 'Login',
-  MOVIES: 'Movies',
-  MOVIE_DETAILS: 'Movie Details',
-  NEWS: 'News',
-  EVENTS: 'Events',
-  ABOUT_US: 'About Us',
-  PROFILE: 'Profile',
+  HOME: 'Trang chủ',
+  LOGIN: 'Đăng nhập',
+  MOVIES: 'Phim',
+  MOVIE_DETAILS: 'Chi tiết phim',
+  NEWS: 'Tin tức & Ưu đãi',
+  EVENTS: 'Sự kiện',
+  ABOUT_US: {
+    About_Us: 'Về chúng tôi',
+    Spixal: 'Spixal',
+  },
+  PROFILE: 'Hồ sơ cá nhân',
+  SHOP: 'Cửa hàng',
+  CONTACT: 'Liên Hệ',
 
   // Admin Routes (Commented for now)
   // ADMIN_DASHBOARD: "Admin Dashboard",

@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import MovieSlider from '../../components/MovieSlider'
 import { Movie } from '../../types/types'
 import NewsCard from '../../components/NewsCard'
+import { Link } from 'react-router-dom'
+import { pathKeys } from '../../constants'
 
 const slides = [
   '/src/assets/images/banner1.png',
@@ -89,9 +91,9 @@ function Home() {
 
       <div className='flex justify-center gap-6 px-36 pt-10 bg-white'>
         <button
-          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-normalBlue ${
+          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-blue-normal ${
             activeTab === 'nowShowing'
-              ? 'bg-normalBlue text-white'
+              ? 'bg-blue-normal text-white'
               : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('nowShowing')}
@@ -99,9 +101,9 @@ function Home() {
           Phim Đang Chiếu
         </button>
         <button
-          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-normalBlue ${
+          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-blue-normal ${
             activeTab === 'comingSoon'
-              ? 'bg-normalBlue text-white'
+              ? 'bg-blue-normal text-white'
               : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('comingSoon')}
@@ -109,9 +111,9 @@ function Home() {
           Phim Sắp Chiếu
         </button>
         <button
-          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-normalBlue ${
+          className={`py-2 px-4 rounded-t-lg  transition w-[25%] uppercase font-bungee text-blue-normal ${
             activeTab === 'specialShows'
-              ? 'bg-normalBlue text-white'
+              ? 'bg-blue-normal text-white'
               : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('specialShows')}
@@ -161,12 +163,14 @@ function Home() {
 
       <div className='px-64 pb-16'>
         <div className='flex justify-between'>
-          <p className='uppercase font-bungee text-5xl text-normalBlue'>
+          <p className='uppercase font-bungee text-5xl text-blue-normal'>
             Sự kiện
           </p>
-          <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-normalBlue rounded-full text-normalBlue'>
-            Xem thêm
-          </button>
+          <Link to={pathKeys.EVENTS}>
+            <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
+              Xem thêm
+            </button>
+          </Link>
         </div>
         <div className='flex gap-6 pt-10'>
           <img
@@ -175,7 +179,7 @@ function Home() {
             className='h-96 min-w-3/5 object-cover rounded-3xl'
           />
           <div className='self-end'>
-            <h1 className='uppercase text-3xl text-normalBlue font-bungee'>
+            <h1 className='uppercase text-3xl text-blue-normal font-bungee'>
               Sự kiện khai trương
             </h1>
             <div className='py-6'>
@@ -184,26 +188,28 @@ function Home() {
               miễn phí, ưu đãi hấp dẫn và nhiều hoạt động vui nhộn dành riêng
               cho bạn.
               <p>
-                <span className='text-normalBlue font-bold'>Thời gian:</span>{' '}
+                <span className='text-blue-normal font-bold'>Thời gian:</span>{' '}
                 20-03-2025
               </p>
             </div>
-            <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-normalBlue rounded-full text-normalBlue bg-gray-100'>
+            <button className='w-48 h-auto text-2xl uppercase font-bungee border-0 border-blue-normal rounded-full text-blue-normal bg-blue-light'>
               <p className='py-2 '>Khám phá</p>
             </button>
           </div>
         </div>
       </div>
 
-      <div className='bg-normalBlue py-16'>
+      <div className='bg-blue-normal py-16'>
         <div className='px-64'>
           <div className='flex justify-between'>
             <p className='uppercase font-bungee text-5xl text-white'>
               Menu hấp dẫn
             </p>
-            <button className='w-48 h-auto text-2xl uppercase font-bungee bg-white rounded-full text-normalBlue'>
-              Xem thêm
-            </button>
+            <Link to={pathKeys.SHOP}>
+              <button className='w-48 h-auto text-2xl uppercase font-bungee bg-white rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
+                Xem thêm
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -221,7 +227,7 @@ function Home() {
             className='h-96 min-w-3/5 object-cover rounded-3xl'
           />
           <div className='self-end'>
-            <h1 className='uppercase text-3xl text-normalBlue font-bungee'>
+            <h1 className='uppercase text-3xl text-blue-normal font-bungee'>
               Về chúng mình
             </h1>
             <div className='py-6'>
@@ -233,26 +239,30 @@ function Home() {
               kế và câu chuyện thương hiệu lấy cảm hứng từ những cung bậc cảm
               xúc của khán giả qua mỗi một tác phẩm điện ảnh.
               <p>
-                <span className='text-normalBlue font-bold'>Thời gian:</span>{' '}
+                <span className='text-blue-normal font-bold'>Thời gian:</span>{' '}
                 20-03-2025
               </p>
             </div>
-            <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-normalBlue rounded-full text-normalBlue'>
-              <p className='py-2 '>Xem thêm</p>
-            </button>
+            <Link to={pathKeys.ABOUT_US}>
+              <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal hover:bg-blue-lightHover active:bg-blue-lightActive'>
+                <p className='py-2 '>Xem thêm</p>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
 
       {/* News */}
-      <div className='bg-[#E6F9FE] px-40'>
+      <div className='bg-blue-light px-40'>
         <div className='flex justify-between pt-16'>
-          <h1 className='uppercase text-normalBlue font-bungee text-5xl'>
+          <h1 className='uppercase text-blue-normal font-bungee text-5xl'>
             Tin tức
           </h1>
-          <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-normalBlue rounded-full text-normalBlue'>
-            Xem thêm
-          </button>
+          <Link to={pathKeys.NEWS}>
+            <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
+              Xem thêm
+            </button>
+          </Link>
         </div>
         <div className='py-10'>
           <div className='flex justify-between'>
