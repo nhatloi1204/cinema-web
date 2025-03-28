@@ -11,7 +11,7 @@ const SearchBar = ({ placeholder }: SearchBarProps) => {
     <>
       <div className='relative'>
         <input
-          className='bg-white w-72 h-10 border-gray-50 rounded-2xl placeholder:text-normalBlue placeholder:font-semibold focus:outline-0 pl-10 pr-5 focus'
+          className='bg-white w-72 h-10 border-gray-50 rounded-2xl placeholder:text-blue-normal placeholder:font-semibold focus:outline-0 pl-10 pr-5 focus'
           type='search'
           name='searchMovie'
           id='searchMovie'

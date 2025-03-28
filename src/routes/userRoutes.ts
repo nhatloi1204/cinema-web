@@ -15,31 +15,41 @@ const userRoutes = [
   //     layout: "BlankLayout",
   //     meta: { authRoute: true },
   //   },
-  //   {
-  //     path: pathKeys.MOVIES,
-  //     title: pathNames.MOVIES,
-  //     component: lazy(() => import("../pages/Movies")),
-  //   },
+  {
+    path: pathKeys.MOVIES,
+    title: pathNames.MOVIES,
+    component: lazy(() => import('../pages/Movies')),
+  },
   //   {
   //     path: pathKeys.MOVIE_DETAILS,
   //     title: pathNames.MOVIE_DETAILS,
   //     component: lazy(() => import("../pages/MovieDetails")),
   //   },
-  //   {
-  //     path: pathKeys.NEWS,
-  //     title: pathNames.NEWS,
-  //     component: lazy(() => import("../pages/News")),
-  //   },
-  //   {
-  //     path: pathKeys.EVENTS,
-  //     title: pathNames.EVENTS,
-  //     component: lazy(() => import("../pages/Events")),
-  //   },
-  //   {
-  //     path: pathKeys.ABOUT_US,
-  //     title: pathNames.ABOUT_US,
-  //     component: lazy(() => import("../pages/AboutUs")),
-  //   },
+  {
+    path: pathKeys.NEWS,
+    title: pathNames.NEWS,
+    component: lazy(() => import('../pages/News')),
+  },
+  {
+    path: pathKeys.EVENTS,
+    title: pathNames.EVENTS,
+    component: lazy(() => import('../pages/Events')),
+  },
+  {
+    path: pathKeys.ABOUT_US,
+    title: pathNames.ABOUT_US,
+    component: lazy(() => import('../pages/AboutUs')),
+  },
+  {
+    path: pathKeys.SHOP,
+    title: pathNames.SHOP,
+    component: lazy(() => import('../pages/Shop')),
+  },
+  {
+    path: pathKeys.CONTACT,
+    title: pathNames.CONTACT,
+    component: lazy(() => import('../pages/Contact')),
+  },
   //   {
   //     path: pathKeys.PROFILE,
   //     title: pathNames.PROFILE,

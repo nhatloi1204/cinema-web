@@ -24,11 +24,11 @@ function MovieSlider({ title, movies }: MovieSliderProps) {
 
   return (
     <div className='w-full px-48'>
-      <h2 className='text-2xl font-bold text-normalBlue mb-4'>{title}</h2>
+      <h2 className='text-2xl font-bold text-blue-normal mb-4'>{title}</h2>
 
       <div className='flex justify-between items-center'>
         <button
-          className=' text-normalBlue top-1/2 left-0 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition'
+          className=' text-blue-normal top-1/2 left-0 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition'
           onClick={prevSlide}
         >
           ◀
@@ -52,7 +52,7 @@ function MovieSlider({ title, movies }: MovieSliderProps) {
           {/* Navigation Buttons */}
         </div>
         <button
-          className=' text-normalBlue top-1/2 right-0 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition'
+          className=' text-blue-normal top-1/2 right-0 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition'
           onClick={nextSlide}
         >
           ▶
