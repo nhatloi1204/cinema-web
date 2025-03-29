@@ -132,31 +132,16 @@ function Home() {
             transition={{ duration: 0.3 }}
           >
             {activeTab === 'nowShowing' && (
-              <MovieSlider title='' movies={moviesNowShowing} />
+              <MovieSlider movies={moviesNowShowing} />
             )}
-            {activeTab === 'comingSoon' &&
-              (moviesComingSoon.length > 0 ? (
-                <MovieSlider title='Phim Sắp Chiếu' movies={moviesComingSoon} />
-              ) : (
-                <div className='h-full flex items-center justify-center'>
-                  <p className='text-center text-gray-500'>
-                    🟡 Hiện tại chưa có phim sắp chiếu.
-                  </p>
-                </div>
-              ))}
-            {activeTab === 'specialShows' &&
-              (moviesSpecialShows.length > 0 ? (
-                <MovieSlider
-                  title='Suất Chiếu Đặc Biệt'
-                  movies={moviesSpecialShows}
-                />
-              ) : (
-                <div className='h-full flex items-center justify-center'>
-                  <p className='text-center text-gray-500'>
-                    🔴 Hiện tại chưa có suất chiếu đặc biệt.
-                  </p>
-                </div>
-              ))}
+
+            {activeTab === 'comingSoon' && (
+              <MovieSlider movies={moviesComingSoon} />
+            )}
+
+            {activeTab === 'specialShows' && (
+              <MovieSlider movies={moviesSpecialShows} />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -214,7 +199,7 @@ function Home() {
         </div>
 
         <div>
-          <MovieSlider title='' movies={moviesNowShowing} />
+          <MovieSlider movies={moviesNowShowing} />
         </div>
       </div>
 

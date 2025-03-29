@@ -4,8 +4,6 @@ interface SearchBarProps {
   placeholder: string
 }
 
-const searchStyle = { color: '#00c0f3' }
-
 const SearchBar = ({ placeholder }: SearchBarProps) => {
   return (
     <>
@@ -18,8 +16,7 @@ const SearchBar = ({ placeholder }: SearchBarProps) => {
           placeholder={placeholder}
         />
         <FaSearch
-          className='absolute top-3 left-[4%]'
-          style={searchStyle}
+          className='absolute top-3 left-[4%] text-blue-normal'
           size={20}
         />
       </div>
