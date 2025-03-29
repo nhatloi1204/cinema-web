@@ -26,10 +26,10 @@ function NavBar() {
       <div className='flex flex-row mr-20 gap-8 items-center'>
         <SearchBar placeholder='Nhập tên phim' />
         <button>
-          <FaUser size={20} />
+          <FaUser size={20} className='text-white' />
         </button>
         <button>
-          <FaShoppingBag size={20} />
+          <FaShoppingBag size={20} className='text-white' />
         </button>
       </div>
     </nav>
