@@ -2,10 +2,10 @@ import Carousel from '../../components/Carousel'
 import QuickBooking from '../../components/QuickBooking'
 
 const slides = [
-  '/src/assets/images/banner1.png',
-  '/src/assets/images/banner2.png',
-  '/src/assets/images/banner1.png',
-  '/src/assets/images/banner2.png',
+  '/src/assets/images/carousel/banner1.png',
+  '/src/assets/images/carousel/banner2.png',
+  '/src/assets/images/carousel/banner3.png',
+  '/src/assets/images/carousel/banner4.png',
 ]
 
 const theaters = ['']
@@ -22,7 +22,7 @@ function AboutUs() {
             src={s}
             key={i}
             alt='banner'
-            className='w-full h-auto max-h-[35rem] object-cover'
+            className='w-full h-full max-h-[35rem] object-cover'
           />
         ))}
       </Carousel>
