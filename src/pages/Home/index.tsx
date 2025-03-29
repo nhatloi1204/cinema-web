@@ -9,10 +9,10 @@ import { Link } from 'react-router-dom'
 import { pathKeys } from '../../constants'
 
 const slides = [
-  '/src/assets/images/banner1.png',
-  '/src/assets/images/banner2.png',
-  '/src/assets/images/banner1.png',
-  '/src/assets/images/banner2.png',
+  '/src/assets/images/carousel/banner1.png',
+  '/src/assets/images/carousel/banner2.png',
+  '/src/assets/images/carousel/banner3.png',
+  '/src/assets/images/carousel/banner4.png',
 ]
 
 const theaters = ['CGV Van Hanh Mall', 'CGV Crescent Mall']
@@ -24,7 +24,7 @@ const moviesNowShowing: Movie[] = [
   {
     id: 1,
     title: 'Nhat Loi',
-    image: '/src/assets/images/banner1.png',
+    image: '/src/assets/images/carousel/banner1.png',
     genre: 'Tâm lý',
     duration: '100 phút',
     releaseDate: '24-03-2025',
@@ -32,7 +32,7 @@ const moviesNowShowing: Movie[] = [
   {
     id: 2,
     title: 'Nhat Loi',
-    image: '/src/assets/images/banner2.png',
+    image: '/src/assets/images/carousel/banner2.png',
     genre: 'Hoạt hình',
     duration: '100 phút',
     releaseDate: '24-03-2025',
@@ -40,7 +40,7 @@ const moviesNowShowing: Movie[] = [
   {
     id: 3,
     title: 'Nhat Loi',
-    image: '/src/assets/images/banner1.png',
+    image: '/src/assets/images/carousel/banner1.png',
     genre: 'Hành động',
     duration: '100 phút',
     releaseDate: '24-03-2025',
@@ -48,7 +48,7 @@ const moviesNowShowing: Movie[] = [
   {
     id: 4,
     title: 'Nhat Loi',
-    image: '/src/assets/images/banner2.png',
+    image: '/src/assets/images/carousel/banner2.png',
     genre: 'Kinh dị',
     duration: '100 phút',
     releaseDate: '24-03-2025',
@@ -71,7 +71,7 @@ function Home() {
               key={i}
               src={s}
               alt='banner'
-              className='w-full h-auto max-h-[35rem] object-cover'
+              className='w-full h-full max-h-[35rem] object-cover'
             />
           ))}
         </Carousel>
