@@ -1,20 +1,47 @@
-import { Movie } from '../../types/types'
+import { Link } from 'react-router-dom'
+import { Movie } from '../../store/movieData/movieType'
+import { formatDate } from '../../utils/formatDate'
 
-function MovieCard({ image, title, genre, duration, releaseDate }: Movie) {
+interface MovieCardProps {
+  movie: Movie
+  onBookNow?: () => void
+}
+
+function MovieCard({ movie, onBookNow }: MovieCardProps) {
   return (
-    <div className='w-64 rounded rounded-b-3xl [box-shadow:4px_-4px_10px_rgba(0,0,0,0.15)] bg-white '>
-      <img
-        src={image}
-        alt={title}
-        className='w-full h-80 object-cover rounded'
-      />
-      <h2 className='text-lg font-bold mt-2 px-4'>{title}</h2>
-      <p className='text-gray-600 px-4'>Thể loại: {genre}</p>
-      <p className='text-gray-600 px-4'>Thời lượng: {duration}</p>
-      <p className='text-gray-600 px-4'>Khởi chiếu: {releaseDate}</p>
-      <button className='mt-2 w-full bg-blue-500 text-white font-bold py-2 rounded-full hover:bg-blue-600 transition px-4'>
-        Đặt vé
-      </button>
+    <div className='flex flex-col w-64 rounded-2xl bg-white shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 min-h-full'>
+      <div className='relative w-full h-80'>
+        <img
+          src={movie.poster}
+          alt={movie.title}
+          className='w-full h-full object-cover transition-transform duration-300 hover:scale-110'
+        />
+      </div>
+
+      <div className='p-4 flex flex-col justify-between h-full'>
+        <div className='mb-2'>
+          <Link to={`/movies/${movie._id}`}>
+            <h2 className='text-xl font-bold text-blue-600 line-clamp-2 hover:underline'>
+              {movie.title}
+            </h2>
+          </Link>
+
+          <p className='text-gray-500 text-sm mb-0.5'>🎬 {movie.genre}</p>
+          <p className='text-gray-500 text-sm mb-0.5'>
+            ⏱ {movie.duration} phút
+          </p>
+          <p className='text-gray-500 text-sm'>
+            📅 Khởi chiếu: {formatDate(movie.releaseDate)}
+          </p>
+        </div>
+
+        <button
+          className='w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-bold py-2 rounded-full hover:from-blue-600 hover:to-indigo-600 transition-colors mt-2'
+          onClick={onBookNow}
+        >
+          Đặt vé
+        </button>
+      </div>
     </div>
   )
 }

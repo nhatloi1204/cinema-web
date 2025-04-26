@@ -8,23 +8,16 @@ const userRoutes = [
     title: pathNames.HOME,
     component: lazy(() => import('../pages/Home')),
   },
-  //   {
-  //     path: pathKeys.LOGIN,
-  //     title: pathNames.LOGIN,
-  //     component: lazy(() => import("../pages/Login")),
-  //     layout: "BlankLayout",
-  //     meta: { authRoute: true },
-  //   },
   {
     path: pathKeys.MOVIES,
     title: pathNames.MOVIES,
     component: lazy(() => import('../pages/Movies')),
   },
-  //   {
-  //     path: pathKeys.MOVIE_DETAILS,
-  //     title: pathNames.MOVIE_DETAILS,
-  //     component: lazy(() => import("../pages/MovieDetails")),
-  //   },
+  {
+    path: pathKeys.MOVIE_DETAILS,
+    title: pathNames.MOVIE_DETAILS,
+    component: lazy(() => import('../pages/MovieDetail')),
+  },
   {
     path: pathKeys.NEWS,
     title: pathNames.NEWS,

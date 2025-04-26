@@ -1,48 +1,38 @@
 import MovieSlider from '../../components/MovieSlider'
-import { Movie } from '../../types/types'
-
-const moviesNowShowing: Movie[] = [
-  {
-    id: 1,
-    title: 'Nhat Loi',
-    image: '/src/assets/images/carousel/banner1.png',
-    genre: 'Tâm lý',
-    duration: '100 phút',
-    releaseDate: '24-03-2025',
-  },
-  {
-    id: 2,
-    title: 'Nhat Loi',
-    image: '/src/assets/images/carousel/banner2.png',
-    genre: 'Hoạt hình',
-    duration: '100 phút',
-    releaseDate: '24-03-2025',
-  },
-  {
-    id: 3,
-    title: 'Nhat Loi',
-    image: '/src/assets/images/carousel/banner1.png',
-    genre: 'Hành động',
-    duration: '100 phút',
-    releaseDate: '24-03-2025',
-  },
-  {
-    id: 4,
-    title: 'Nhat Loi',
-    image: '/src/assets/images/carousel/banner2.png',
-    genre: 'Kinh dị',
-    duration: '100 phút',
-    releaseDate: '24-03-2025',
-  },
-]
-
-const moviesComingSoon: Movie[] = []
-const moviesSpecialShows: Movie[] = []
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { fetchMovies } from '../../store/movieData/movieThunk'
+import {
+  selectMovies,
+  selectMovieLoading,
+  selectMovieError,
+} from '../../store/movieData/movieSelector'
 
 function Movies() {
+  const dispatch = useAppDispatch()
+  const movies = useAppSelector(selectMovies)
+  const loading = useAppSelector(selectMovieLoading)
+  const error = useAppSelector(selectMovieError)
+
+  useEffect(() => {
+    dispatch(fetchMovies())
+  }, [dispatch])
+
+  const validMovies = Array.isArray(movies) ? movies : []
+
+  const moviesNowShowing = validMovies.filter(
+    movie => movie.status === 'now_showing',
+  )
+  const moviesComingSoon = validMovies.filter(
+    movie => movie.status === 'coming_soon',
+  )
+  const moviesSpecialShows = validMovies.filter(
+    movie => movie.status === 'special',
+  )
+
   return (
     <>
-      <div className='py-20'>
+      <div className='pt-20'>
         <MovieSlider
           title='Phim đang chiếu'
           movies={moviesNowShowing}
@@ -50,7 +40,7 @@ function Movies() {
         />
       </div>
 
-      <div className='py-20'>
+      <div className='pt-20'>
         <MovieSlider
           title='Phim sắp chiếu'
           movies={moviesComingSoon}
