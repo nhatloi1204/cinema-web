@@ -1,7 +1,12 @@
-import { useState } from 'react'
-import MovieCard from '../MovieCard'
-import { Movie } from '../../types/types'
+import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
+import MovieCard from '../MovieCard'
+import { Movie } from '../../store/movieData/movieType'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import './index.css'
+import BookingModal from '../BookingModal'
+import { useState } from 'react'
 
 interface MovieSliderProps {
   title?: string
@@ -9,28 +14,49 @@ interface MovieSliderProps {
   readMoreBtn?: boolean
 }
 
-function MovieSlider({ title, movies, readMoreBtn = false }: MovieSliderProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  const visibleSlides = 3
-  const totalSlides = Math.ceil(movies.length / visibleSlides)
-
-  const nextSlide = () => {
-    if (currentIndex < totalSlides - 1) {
-      setCurrentIndex(currentIndex + 1)
-    } else setCurrentIndex(0)
+function MovieSlider({
+  title,
+  movies = [],
+  readMoreBtn = false,
+}: MovieSliderProps) {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   }
 
-  const prevSlide = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
-    } else setCurrentIndex(totalSlides - 1)
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+
+  const handleBookNow = (movie: Movie) => {
+    setSelectedMovie(movie)
   }
+
+  const closeModal = () => setSelectedMovie(null)
 
   return (
-    <div className='w-full px-48'>
-      <div className='flex justify-between px-10'>
-        <h2 className='text-3xl text-blue-normal mb-4 uppercase font-bungee'>
+    <div
+      className='w-full px-4 md:px-10'
+      style={{ maxWidth: '1200px', margin: '0 auto' }}
+    >
+      <div className='flex justify-between items-center px-4 md:px-10 mb-6'>
+        <h2 className='text-3xl text-blue-normal uppercase font-bungee'>
           {title}
         </h2>
         {readMoreBtn && (
@@ -47,40 +73,17 @@ function MovieSlider({ title, movies, readMoreBtn = false }: MovieSliderProps) {
           ⏳ Hiện tại chưa có phim.
         </div>
       ) : (
-        <div className='flex justify-between items-center'>
-          {/* Previous Button */}
-          <button
-            className='text-blue-normal p-2 rounded-full shadow-md hover:bg-gray-200 transition'
-            onClick={prevSlide}
-          >
-            ◀
-          </button>
-
-          {/* Movie List */}
-          <div className='pt-5 relative w-full overflow-hidden'>
-            <div
-              className='flex transition-transform duration-500'
-              style={{ transform: `translateX(-${currentIndex * 33.33}%)` }}
-            >
-              {movies.map(movie => (
-                <div
-                  key={movie.id}
-                  className='w-1/3 flex-shrink-0 flex justify-center'
-                >
-                  <MovieCard {...movie} />
-                </div>
-              ))}
+        <Slider {...settings}>
+          {movies.map(movie => (
+            <div key={movie._id} className='px-3'>
+              <MovieCard movie={movie} onBookNow={() => handleBookNow(movie)} />
             </div>
-          </div>
+          ))}
+        </Slider>
+      )}
 
-          {/* Next Button */}
-          <button
-            className='text-blue-normal p-2 rounded-full shadow-md hover:bg-gray-200 transition '
-            onClick={nextSlide}
-          >
-            ▶
-          </button>
-        </div>
+      {selectedMovie && (
+        <BookingModal movie={selectedMovie} onClose={closeModal} />
       )}
     </div>
   )

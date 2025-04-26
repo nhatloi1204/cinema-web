@@ -1,5 +1,4 @@
 import Carousel from '../../components/Carousel'
-import QuickBooking from '../../components/QuickBooking'
 
 const slides = [
   '/src/assets/images/carousel/banner1.png',
@@ -7,11 +6,6 @@ const slides = [
   '/src/assets/images/carousel/banner3.png',
   '/src/assets/images/carousel/banner4.png',
 ]
-
-const theaters = ['']
-const movies = ['']
-const dates = ['']
-const times = ['']
 
 function AboutUs() {
   return (
@@ -26,12 +20,6 @@ function AboutUs() {
           />
         ))}
       </Carousel>
-      <QuickBooking
-        theaters={theaters}
-        movies={movies}
-        dates={dates}
-        times={times}
-      ></QuickBooking>
 
       <div className='bg-white w-full px-40 py-20'>
         <div className='grid grid-cols-2 grid-rows-9  gap-x-20 gap-y-14'>

@@ -21,6 +21,9 @@
   --color-red-normal: #f69896;
   --color-red-normalHover: #dd8987;
   --color-red-normalActive: #c57a78;
+  --color-red-dark: #c94f4f;
+  --color-red-darkHover: #b94a4a;
+  --color-red-darkActive: #a14444;
   /* Font */
   --font-bungee: 'Bungee';
 }
