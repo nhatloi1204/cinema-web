@@ -7,6 +7,8 @@ export interface Movie {
   releaseDate: string
   poster: string
   trailerUrl: string
+  director: string
+  cast: string[]
   status: 'now_showing' | 'coming_soon' | 'special'
   createdAt: string
   updatedAt: string

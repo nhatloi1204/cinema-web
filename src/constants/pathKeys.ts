@@ -9,6 +9,7 @@ const pathKeys = {
   PROFILE: '/profile',
   CONTACT: '/contact',
   SHOP: '/shop',
+  CALLBACK: '/callback',
 
   // Admin Routes (Commented for now)
   // ADMIN_DASHBOARD: "/admin/dashboard",

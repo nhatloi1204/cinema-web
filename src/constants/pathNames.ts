@@ -12,6 +12,7 @@ const pathNames = {
   PROFILE: 'Hồ sơ cá nhân',
   SHOP: 'Cửa hàng',
   CONTACT: 'Liên Hệ',
+  CALLBACK: 'Callback',
 
   // Admin Routes (Commented for now)
   // ADMIN_DASHBOARD: "Admin Dashboard",
