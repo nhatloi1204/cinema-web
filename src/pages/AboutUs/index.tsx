@@ -1,16 +1,21 @@
 import Carousel from '../../components/Carousel'
-
-const slides = [
-  '/src/assets/images/carousel/banner1.png',
-  '/src/assets/images/carousel/banner2.png',
-  '/src/assets/images/carousel/banner3.png',
-  '/src/assets/images/carousel/banner4.png',
-]
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { fetchEvents } from '../../store/eventData/eventThunk'
+import { selectEvents } from '../../store/eventData/eventSelector'
 
 function AboutUs() {
+  const dispatch = useAppDispatch()
+  const events = useAppSelector(selectEvents)
+  const slides = events.map(event => event.image)
+
+  useEffect(() => {
+    dispatch(fetchEvents())
+  }, [dispatch])
+
   return (
     <>
-      <Carousel autoSlide={true} autoSlideInterval={3000}>
+      <Carousel autoSlide={false} autoSlideInterval={3000}>
         {slides.map((s, i) => (
           <img
             src={s}

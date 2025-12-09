@@ -2,25 +2,25 @@ import Carousel from '../../components/Carousel'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { fetchNews } from '../../store/newsData/newsThunk'
+import { fetchEvents } from '../../store/eventData/eventThunk'
 import {
   selectNews,
   selectNewsLoading,
 } from '../../store/newsData/newsSelector'
-
-const slides = [
-  '/src/assets/images/carousel/banner1.png',
-  '/src/assets/images/carousel/banner2.png',
-  '/src/assets/images/carousel/banner3.png',
-  '/src/assets/images/carousel/banner4.png',
-]
+import { selectEvents } from '../../store/eventData/eventSelector'
 
 function News() {
   const dispatch = useAppDispatch()
   const news = useAppSelector(selectNews)
   const loading = useAppSelector(selectNewsLoading)
 
+  // Events
+  const events = useAppSelector(selectEvents)
+  const slides = events.map(event => event.image)
+
   useEffect(() => {
     dispatch(fetchNews())
+    dispatch(fetchEvents())
   }, [dispatch])
 
   if (loading) {
@@ -29,16 +29,18 @@ function News() {
 
   return (
     <>
-      <Carousel autoSlide={false} autoSlideInterval={3000}>
-        {slides.map((s, i) => (
-          <img
-            src={s}
-            key={i}
-            alt='banner'
-            className='w-full h-full min-h-[20rem] max-h-[35rem] object-cover'
-          />
-        ))}
-      </Carousel>
+      <div className='w-full'>
+        <Carousel autoSlide={false} autoSlideInterval={3000}>
+          {slides.map((s, i) => (
+            <img
+              key={i}
+              src={s}
+              alt='banner'
+              className='w-full h-full max-h-[35rem] object-cover'
+            />
+          ))}
+        </Carousel>
+      </div>
 
       <div className='bg-white py-24 px-32'>
         <div className='flex flex-col w-full gap-16'>

@@ -43,11 +43,11 @@ const userRoutes = [
     title: pathNames.CONTACT,
     component: lazy(() => import('../pages/Contact')),
   },
-  //   {
-  //     path: pathKeys.PROFILE,
-  //     title: pathNames.PROFILE,
-  //     component: lazy(() => import("../pages/Profile")),
-  //   },
+  {
+    path: pathKeys.PROFILE,
+    title: pathNames.PROFILE,
+    component: lazy(() => import('../pages/Profile')),
+  },
 ]
 
 export default userRoutes
