@@ -13,12 +13,14 @@ interface MovieSliderProps {
   title?: string
   movies: Movie[]
   readMoreBtn?: boolean
+  loading?: boolean
 }
 
 function MovieSlider({
   title,
   movies = [],
   readMoreBtn = false,
+  loading = false,
 }: MovieSliderProps) {
   const settings = {
     dots: true,
@@ -71,7 +73,11 @@ function MovieSlider({
         </div>
       )}
 
-      {movies.length === 0 ? (
+      {loading ? (
+        <div className='h-48 flex items-center justify-center text-gray-400 text-lg'>
+          Đang tải dữ liệu...
+        </div>
+      ) : movies.length === 0 ? (
         <div className='h-48 flex items-center justify-center text-gray-400 text-lg'>
           Hiện tại chưa có phim nào
         </div>

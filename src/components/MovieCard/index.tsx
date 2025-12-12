@@ -48,7 +48,7 @@ function MovieCard({ movie, onBookNow }: MovieCardProps) {
         {/* Button */}
         <div className='flex-shrink-0'>
           <button
-            className='w-full bg-blue-normal text-white font-bold py-2.5 rounded-lg hover:bg-cyan-500 active:bg-cyan-600 transition-colors duration-200 shadow-sm hover:shadow-md'
+            className='w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold py-2.5 rounded-lg hover:from-cyan-500 hover:to-blue-500 active:from-cyan-600 active:to-blue-600 transition-all duration-200 shadow-md hover:shadow-lg'
             onClick={onBookNow}
           >
             Đặt vé ngay

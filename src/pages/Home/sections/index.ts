@@ -1,0 +1,6 @@
+export { default as BannerSection } from './BannerSection'
+export { default as MovieTabsSection } from './MovieTabsSection'
+export { default as EventSection } from './EventSection'
+export { default as ShopMenuSection } from './ShopMenuSection'
+export { default as AboutUsSection } from './AboutUsSection'
+export { default as NewsSection } from './NewsSection'
