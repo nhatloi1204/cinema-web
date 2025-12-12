@@ -47,6 +47,7 @@ const userRoutes = [
     path: pathKeys.PROFILE,
     title: pathNames.PROFILE,
     component: lazy(() => import('../pages/Profile')),
+    isProtected: true,
   },
 ]
 

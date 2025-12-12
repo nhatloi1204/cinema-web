@@ -1,6 +1,6 @@
 import Carousel from '../../components/Carousel'
 import ShopItemSlider from '../../components/ShopItemSlider'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MovieSlider from '../../components/MovieSlider'
 import NewsCard from '../../components/NewsCard'
@@ -37,6 +37,7 @@ import {
 
 function Home() {
   const [activeTab, setActiveTab] = useState<string>('nowShowing')
+  const hasInitialized = useRef(false)
 
   const dispatch = useAppDispatch()
 
@@ -59,11 +60,16 @@ function Home() {
   const newsLoading = useAppSelector(selectNewsLoading)
 
   useEffect(() => {
-    dispatch(fetchMovies())
-    dispatch(fetchEvents())
-    dispatch(fetchShopItems())
-    dispatch(fetchNews())
+    // Chỉ dispatch 1 lần khi component mount
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      dispatch(fetchMovies())
+      dispatch(fetchEvents())
+      dispatch(fetchShopItems())
+      dispatch(fetchNews())
+    }
   }, [dispatch])
+  console.log('Home rendering...')
 
   const validMovies = Array.isArray(movies) ? movies : []
 

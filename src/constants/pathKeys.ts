@@ -11,7 +11,13 @@ const pathKeys = {
   SHOP: '/shop',
   CALLBACK: '/callback',
 
-  // Admin Routes (Commented for now)
+  // Admin Routes
+  ADMIN: 'admin',
+  ADMIN_THEATERS: 'theaters',
+  ADMIN_ROOMS: 'rooms',
+  ADMIN_MOVIES: 'movies',
+  ADMIN_SHOWTIMES: 'showtimes',
+
   // ADMIN_DASHBOARD: "/admin/dashboard",
   // ADMIN_USERS: "/admin/users",
   // ADMIN_MOVIES: "/admin/movies",

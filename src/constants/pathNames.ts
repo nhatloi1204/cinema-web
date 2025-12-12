@@ -14,10 +14,12 @@ const pathNames = {
   CONTACT: 'Liên Hệ',
   CALLBACK: 'Callback',
 
-  // Admin Routes (Commented for now)
-  // ADMIN_DASHBOARD: "Admin Dashboard",
-  // ADMIN_USERS: "Manage Users",
-  // ADMIN_MOVIES: "Manage Movies",
+  // Admin Routes
+  ADMIN: 'Admin Dashboard',
+  ADMIN_THEATERS: 'Quản lý Rạp',
+  ADMIN_ROOMS: 'Quản lý Phòng',
+  ADMIN_MOVIES: 'Quản lý Phim',
+  ADMIN_SHOWTIMES: 'Quản lý Suất Chiếu',
 
   NOT_FOUND: '404 - Not Found',
 }

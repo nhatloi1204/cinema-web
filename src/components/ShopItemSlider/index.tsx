@@ -11,7 +11,9 @@ interface ShopItemSliderProps {
 export default function ShopItemSlider({ shopItems }: ShopItemSliderProps) {
   if (!shopItems || shopItems.length === 0) {
     return (
-      <div className='text-center text-2xl py-32'>Không có sản phẩm nào</div>
+      <div className='text-center text-lg py-32 text-gray-400'>
+        Hiện tại chưa có sản phẩm nào
+      </div>
     )
   }
 
@@ -19,7 +21,7 @@ export default function ShopItemSlider({ shopItems }: ShopItemSliderProps) {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4, // số lượng sản phẩm hiển thị cùng lúc
+    slidesToShow: 4,
     slidesToScroll: 1,
     arrows: true,
     responsive: [
@@ -45,39 +47,43 @@ export default function ShopItemSlider({ shopItems }: ShopItemSliderProps) {
   }
 
   return (
-    <div className='px-8 md:px-40 py-8'>
+    <div className='px-6 md:px-12 py-8'>
       <Slider {...settings}>
         {shopItems.map(item => (
           <div key={item._id} className='px-3 h-full'>
-            <div className='h-[500px] bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col overflow-hidden'>
+            <div className='h-[520px] bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1'>
               {/* Ảnh */}
-              <div className='relative w-full h-48 md:h-64 overflow-hidden rounded-t-2xl'>
+              <div className='relative w-full h-56 md:h-64 overflow-hidden bg-gray-100'>
                 <img
                   src={item.image}
                   alt={item.name}
-                  className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
+                  className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-110'
                 />
+                {/* Badge */}
+                <div className='absolute top-3 right-3 bg-blue-normal text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg'>
+                  HOT
+                </div>
               </div>
 
               {/* Nội dung */}
-              <div className='flex flex-col flex-1 p-4'>
+              <div className='flex flex-col flex-1 p-5'>
                 {/* Title + description */}
                 <div className='flex-1 flex flex-col justify-start'>
-                  <h3 className='text-lg font-semibold text-blue-600 mb-2 text-center line-clamp-2 min-h-[3rem]'>
+                  <h3 className='text-base font-bungee text-blue-normal mb-2 text-center line-clamp-2 min-h-[2.5rem] tracking-wide'>
                     {item.name}
                   </h3>
-                  <p className='text-gray-500 text-sm text-center line-clamp-2 min-h-[2.5rem]'>
+                  <p className='text-gray-600 text-sm text-center line-clamp-2 min-h-[2.5rem] leading-relaxed'>
                     {item.description}
                   </p>
                 </div>
 
                 {/* Price + Button */}
-                <div className='mt-4'>
-                  <p className='text-blue-600 font-bold text-xl text-center'>
+                <div className='mt-5 space-y-3'>
+                  <p className='text-blue-normal font-bold text-2xl text-center font-bungee'>
                     {item.price.toLocaleString()}₫
                   </p>
-                  <button className='mt-3 w-full py-2 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 active:bg-blue-800 transition duration-200'>
-                    Mua
+                  <button className='w-full py-2.5 bg-blue-normal text-white font-semibold rounded-lg hover:bg-cyan-500 active:bg-cyan-600 transition-colors duration-200 shadow-sm hover:shadow-md'>
+                    Mua ngay
                   </button>
                 </div>
               </div>
