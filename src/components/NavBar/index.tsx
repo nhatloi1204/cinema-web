@@ -1,31 +1,31 @@
 import { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import SearchBar from '../SearchBar'
 import { pathKeys, pathNames } from '../../constants'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { loginUser, logoutUser } from '../../store/userData/userThunk'
 import {
-  loginUser,
-  logoutUser,
-  fetchProfile,
-} from '../../store/userData/userThunk'
-import { selectUser } from '../../store/userData/userSelector'
+  selectUser,
+  selectUserLoading,
+} from '../../store/userData/userSelector'
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
-  const defaultAvatar = 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
-
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
+  const loading = useAppSelector(selectUserLoading)
 
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchProfile())
-    }
-  }, [dispatch, user])
+  // useEffect(() => {
+  //   if (!user) {
+  //     dispatch(fetchProfile())
+  //   }
+  // }, [dispatch, user])
+  // console.log('UserProfile rendering...')
 
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -80,7 +80,7 @@ function NavBar() {
             {user ? (
               <div className='relative z-50' ref={dropdownRef}>
                 <img
-                  src={user.avatar || defaultAvatar}
+                  src={user.avatar}
                   alt='avatar'
                   className='w-10 h-10 rounded-full cursor-pointer'
                   onClick={toggleDropdown}
@@ -188,4 +188,4 @@ function NavBar() {
   )
 }
 
-export default NavBar
+export default React.memo(NavBar)

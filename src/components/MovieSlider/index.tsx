@@ -1,3 +1,4 @@
+import React from 'react'
 import Slider from 'react-slick'
 import { Link } from 'react-router-dom'
 import MovieCard from '../MovieCard'
@@ -52,25 +53,27 @@ function MovieSlider({
 
   return (
     <div
-      className='w-full px-4 md:px-10'
+      className='w-full px-4 md:px-8 py-6'
       style={{ maxWidth: '1200px', margin: '0 auto' }}
     >
-      <div className='flex justify-between items-center px-4 md:px-10 mb-6'>
-        <h2 className='text-3xl text-blue-normal uppercase font-bungee'>
-          {title}
-        </h2>
-        {readMoreBtn && (
-          <Link to=''>
-            <button className='w-40 text-xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
-              Xem thêm
-            </button>
-          </Link>
-        )}
-      </div>
+      {title && (
+        <div className='flex justify-between items-center mb-8'>
+          <h2 className='text-3xl md:text-4xl text-blue-normal uppercase font-bungee tracking-wider'>
+            {title}
+          </h2>
+          {readMoreBtn && (
+            <Link to=''>
+              <button className='px-6 py-2.5 text-sm md:text-base uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal hover:bg-blue-normal hover:text-white transition-all duration-200'>
+                Xem thêm
+              </button>
+            </Link>
+          )}
+        </div>
+      )}
 
       {movies.length === 0 ? (
-        <div className='h-32 flex items-center justify-center text-gray-500'>
-          ⏳ Hiện tại chưa có phim.
+        <div className='h-48 flex items-center justify-center text-gray-400 text-lg'>
+          Hiện tại chưa có phim nào
         </div>
       ) : (
         <Slider {...settings}>
@@ -89,4 +92,4 @@ function MovieSlider({
   )
 }
 
-export default MovieSlider
+export default React.memo(MovieSlider)

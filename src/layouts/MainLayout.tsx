@@ -1,16 +1,14 @@
-import { ReactNode } from 'react'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
+import { Outlet } from 'react-router-dom'
 
-interface MainLayoutProps {
-  children: ReactNode
-}
-
-const MainLayout = ({ children }: MainLayoutProps) => {
+const MainLayout = () => {
   return (
     <div className='flex flex-col min-h-[100vh]'>
       <NavBar />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   )
