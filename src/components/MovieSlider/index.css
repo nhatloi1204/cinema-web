@@ -1,8 +1,21 @@
 .slick-prev:before,
 .slick-next:before {
-  color: black !important;
-  font-size: 24px !important;
+  color: var(--color-blue-normal);
+  font-size: 28px !important;
   opacity: 1 !important;
+}
+
+.slick-prev,
+.slick-next {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  /* rounded-full */
+  z-index: 10;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  /* White/90% opacity */
 }
 
 .slick-slide > div > div {

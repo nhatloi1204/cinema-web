@@ -24,20 +24,22 @@ const NewsSection: React.FC = () => {
   }, [dispatch])
 
   return (
-    <div className='bg-blue-light px-40'>
-      <div className='flex justify-between pt-16'>
-        <h1 className='uppercase text-blue-normal font-bungee text-5xl'>
-          Tin tức
-        </h1>
-        <Link to={pathKeys.NEWS}>
-          <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
-            Xem thêm
-          </button>
-        </Link>
+    <div className='bg-blue-light'>
+      <div className='pt-16 px-64'>
+        <div className='flex justify-between '>
+          <p className='uppercase text-blue-normal font-bungee text-5xl'>
+            Tin tức
+          </p>
+          <Link to={pathKeys.NEWS}>
+            <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
+              Xem thêm
+            </button>
+          </Link>
+        </div>
       </div>
-      <div className='py-10'>
-        <div className='flex justify-between'>
-          {news.slice(0, 4).map(item => (
+      <div className='py-10 px-40'>
+        <div className='flex justify-between gap-5'>
+          {news.slice(0, 3).map(item => (
             <NewsCard key={item._id} image={item.image} title={item.title} />
           ))}
         </div>

@@ -4,7 +4,7 @@ import { pathKeys } from '../../../constants'
 
 const AboutUsSection: React.FC = () => {
   return (
-    <div className='w-full px-64 pb-16 pt-8'>
+    <div className='w-full px-64 pb-16'>
       <div className='flex gap-6 pt-10'>
         <img
           src='/src/assets/images/aboutUs1.png'

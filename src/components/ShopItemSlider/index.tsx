@@ -1,8 +1,8 @@
 import Slider from 'react-slick'
 import { ShopItem } from '../../store/shopData/shopType'
+import { IoStar } from 'react-icons/io5'
 import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import './index.css'
+import '../MovieSlider/index.css'
 
 interface ShopItemSliderProps {
   shopItems: ShopItem[]
@@ -18,27 +18,21 @@ export default function ShopItemSlider({ shopItems }: ShopItemSliderProps) {
   }
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     arrows: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
           slidesToShow: 2,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
         },
@@ -47,45 +41,63 @@ export default function ShopItemSlider({ shopItems }: ShopItemSliderProps) {
   }
 
   return (
-    <div className='px-6 md:px-12 py-8'>
+    <div
+      className='w-full px-4 md:px-8 py-6'
+      style={{ maxWidth: '1200px', margin: '0 auto' }}
+    >
       <Slider {...settings}>
         {shopItems.map(item => (
           <div key={item._id} className='px-3 h-full'>
-            <div className='h-[520px] bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1'>
-              {/* Ảnh */}
-              <div className='relative w-full h-56 md:h-64 overflow-hidden bg-gray-100'>
+            <div className='h-[620px] rounded-2xl bg-gradient-to-b from-white to-gray-50 shadow-lg hover:shadow-2xl border border-gray-200/50 transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-3'>
+              {/* Image Container */}
+              <div className='relative w-full h-72 overflow-hidden bg-gradient-to-br from-gray-300 to-gray-400'>
                 <img
                   src={item.image}
                   alt={item.name}
-                  className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-110'
+                  className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
                 />
-                {/* Badge */}
-                <div className='absolute top-3 right-3 bg-blue-normal text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg'>
-                  HOT
+
+                {/* Dark overlay on hover */}
+                <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+
+                {/* HOT Badge */}
+                <div className='absolute top-4 left-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg uppercase tracking-wide'>
+                  Hot
+                </div>
+
+                {/* Rating */}
+                <div className='absolute top-4 right-4 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md'>
+                  <IoStar
+                    size={16}
+                    className='text-yellow-500 fill-yellow-500'
+                  />
+                  <span className='text-sm font-bold text-gray-800'>4.8</span>
                 </div>
               </div>
 
-              {/* Nội dung */}
-              <div className='flex flex-col flex-1 p-5'>
-                {/* Title + description */}
-                <div className='flex-1 flex flex-col justify-start'>
-                  <h3 className='text-base font-bungee text-blue-normal mb-2 text-center line-clamp-2 min-h-[2.5rem] tracking-wide'>
-                    {item.name}
-                  </h3>
-                  <p className='text-gray-600 text-sm text-center line-clamp-2 min-h-[2.5rem] leading-relaxed'>
-                    {item.description}
+              {/* Content */}
+              <div className='flex flex-col flex-1 p-6 gap-4'>
+                {/* Title */}
+                <h3 className='text-lg font-bold text-gray-900 line-clamp-2 tracking-wide group-hover:text-blue-600 transition-colors'>
+                  {item.name}
+                </h3>
+
+                {/* Description */}
+                <p className='text-gray-600 text-sm line-clamp-2 leading-relaxed flex-1'>
+                  {item.description}
+                </p>
+
+                {/* Price */}
+                <div className='flex items-baseline gap-2'>
+                  <p className='text-2xl font-bold text-blue-600 font-bungee'>
+                    {item.price.toLocaleString()}₫
                   </p>
                 </div>
 
-                {/* Price + Button */}
-                <div className='mt-5 space-y-3'>
-                  <p className='text-blue-normal font-bold text-2xl text-center font-bungee'>
-                    {item.price.toLocaleString()}₫
-                  </p>
-                  <button className='w-full py-2.5 bg-blue-normal text-white font-semibold rounded-lg hover:bg-cyan-500 active:bg-cyan-600 transition-colors duration-200 shadow-sm hover:shadow-md'>
-                    Mua ngay
-                  </button>
-                </div>
+                {/* Button */}
+                <button className='w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2'>
+                  Mua ngay
+                </button>
               </div>
             </div>
           </div>
