@@ -23,7 +23,7 @@ function MovieSlider({
   loading = false,
 }: MovieSliderProps) {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -84,7 +84,7 @@ function MovieSlider({
       ) : (
         <Slider {...settings}>
           {movies.map(movie => (
-            <div key={movie._id} className='px-3'>
+            <div key={movie._id} className='px-2'>
               <MovieCard movie={movie} onBookNow={() => handleBookNow(movie)} />
             </div>
           ))}

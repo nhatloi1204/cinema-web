@@ -7,7 +7,12 @@ import { selectEvents } from '../../store/eventData/eventSelector'
 function AboutUs() {
   const dispatch = useAppDispatch()
   const events = useAppSelector(selectEvents)
-  const slides = events.map(event => event.image)
+  const slides = events.map(event => ({
+    id: event._id,
+    image: event.image,
+    title: event.title,
+    subtitle: event.title,
+  }))
 
   useEffect(() => {
     dispatch(fetchEvents())
@@ -15,16 +20,7 @@ function AboutUs() {
 
   return (
     <>
-      <Carousel autoSlide={false} autoSlideInterval={3000}>
-        {slides.map((s, i) => (
-          <img
-            src={s}
-            key={i}
-            alt='banner'
-            className='w-full h-full max-h-[35rem] object-cover'
-          />
-        ))}
-      </Carousel>
+      <Carousel slides={slides} autoSlide={false} autoSlideInterval={3000} />
 
       <div className='bg-white w-full px-40 py-20'>
         <div className='grid grid-cols-2 grid-rows-9  gap-x-20 gap-y-14'>

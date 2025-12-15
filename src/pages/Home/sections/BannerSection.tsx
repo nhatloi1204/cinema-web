@@ -5,20 +5,17 @@ import Carousel from '../../../components/Carousel'
 
 const BannerSection: React.FC = () => {
   const events = useAppSelector(selectEvents)
-  const slides = events.map(event => event.image)
+
+  const slides = events.map(event => ({
+    id: event._id,
+    image: event.image,
+    title: event.title,
+    subtitle: event.title, 
+  }))
 
   return (
     <div className='w-full'>
-      <Carousel autoSlide={false} autoSlideInterval={3000}>
-        {slides.map((s, i) => (
-          <img
-            key={i}
-            src={s}
-            alt='banner'
-            className='w-full h-full max-h-[35rem] object-cover'
-          />
-        ))}
-      </Carousel>
+      <Carousel slides={slides} autoSlide autoSlideInterval={5000} />
     </div>
   )
 }

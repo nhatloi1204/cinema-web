@@ -16,7 +16,12 @@ function News() {
 
   // Events
   const events = useAppSelector(selectEvents)
-  const slides = events.map(event => event.image)
+  const slides = events.map(event => ({
+    id: event._id,
+    image: event.image,
+    title: event.title,
+    subtitle: event.title,
+  }))
 
   useEffect(() => {
     dispatch(fetchNews())
@@ -30,16 +35,7 @@ function News() {
   return (
     <>
       <div className='w-full'>
-        <Carousel autoSlide={false} autoSlideInterval={3000}>
-          {slides.map((s, i) => (
-            <img
-              key={i}
-              src={s}
-              alt='banner'
-              className='w-full h-full max-h-[35rem] object-cover'
-            />
-          ))}
-        </Carousel>
+        <Carousel slides={slides} autoSlide={false} autoSlideInterval={3000} />
       </div>
 
       <div className='bg-white py-24 px-32'>

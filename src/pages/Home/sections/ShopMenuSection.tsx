@@ -24,14 +24,14 @@ const ShopMenuSection: React.FC = () => {
   }, [dispatch])
 
   return (
-    <div className='bg-blue-normal py-16'>
-      <div className='px-64 m-8'>
+    <div className='py-16'>
+      <div className='px-64 mb-16'>
         <div className='flex justify-between'>
-          <p className='uppercase font-bungee text-5xl text-white'>
+          <p className='uppercase font-bungee text-5xl text-blue-normal'>
             Menu hấp dẫn
           </p>
           <Link to={pathKeys.SHOP}>
-            <button className='w-48 h-auto text-2xl uppercase font-bungee bg-white rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
+            <button className='w-48 h-auto text-2xl uppercase font-bungee border-2 border-blue-normal rounded-full text-blue-normal py-2 hover:bg-blue-lightHover active:bg-blue-lightActive'>
               Xem thêm
             </button>
           </Link>
