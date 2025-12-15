@@ -22,12 +22,12 @@ function MovieCard({ movie, onBookNow }: MovieCardProps) {
         <div className='absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
 
         {/* Rating badge */}
-        <div className='absolute top-4 right-4 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md'>
+        {/* <div className='absolute top-4 right-4 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md'>
           <IoStar size={16} className='text-yellow-500 fill-yellow-500' />
           <span className='text-sm font-bold text-gray-800'>
             {movie.rating}
           </span>
-        </div>
+        </div> */}
       </div>
 
       {/* Content */}
