@@ -1,5 +1,6 @@
-// src/store/showtimeData/showtimeSelector.ts
 import { RootState } from '../store'
 
-export const selectShowtimes = (state: RootState) => state.showtime.data
-export const selectShowtimeStatus = (state: RootState) => state.showtime.status
+export const selectShowtimes = (state: RootState) => state.showtime.showtimes
+export const selectShowtimeLoading = (state: RootState) =>
+  state.showtime.loading
+export const selectShowtimeError = (state: RootState) => state.showtime.error
