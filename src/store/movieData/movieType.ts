@@ -9,8 +9,8 @@ export interface Movie {
   trailerUrl: string
   director: string
   cast: string[]
-  rating: number
-  status: 'now_showing' | 'coming_soon' | 'special'
+  // rating: number
+  status: 'now_showing' | 'coming_soon' | 'offline'
   createdAt: string
   updatedAt: string
 }
