@@ -6,6 +6,7 @@ import eventReducer from './eventData/eventSlice'
 import theaterReducer from './theaterData/theaterSlice'
 import showtimeReducer from './showtimeData/showtimeSlice'
 import userReducer from './userData/userSlice'
+import roomReducer from './roomData/roomSlice'
 
 const rootReducer = combineReducers({
   movie: movieReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   theater: theaterReducer,
   showtime: showtimeReducer,
   user: userReducer,
+  room: roomReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
