@@ -14,5 +14,5 @@ export const selectMoviesComingSoon = createSelector([selectMovies], movies =>
 )
 
 export const selectMoviesSpecial = createSelector([selectMovies], movies =>
-  movies.filter(movie => movie.status === 'special'),
+  movies.filter(movie => movie.status === 'offline'),
 )
