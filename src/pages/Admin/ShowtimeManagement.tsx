@@ -28,7 +28,6 @@ import {
   selectTheaterLoading,
 } from '../../store/theaterData/theaterSelector'
 import { fetchTheaters } from '../../store/theaterData/theaterThunk'
-import { formatDate } from '../../utils/formatDate'
 
 const ShowtimeManagement: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -65,9 +64,32 @@ const ShowtimeManagement: React.FC = () => {
     dispatch(fetchTheaters())
   }, [dispatch])
 
+  // Auto-calculate endTime based on movieId, startTime, and movie duration + 15 min buffer
+  useEffect(() => {
+    if (formData.movieId && formData.startTime) {
+      const selectedMovie = movies.find(m => m._id === formData.movieId)
+      if (selectedMovie) {
+        const startDate = new Date(formData.startTime)
+        // duration in minutes + 15 minutes buffer
+        const totalMinutes = selectedMovie.duration + 15
+        const endDate = new Date(startDate.getTime() + totalMinutes * 60000)
+        // Format to datetime-local format (YYYY-MM-DDTHH:mm)
+        const year = endDate.getFullYear()
+        const month = String(endDate.getMonth() + 1).padStart(2, '0')
+        const day = String(endDate.getDate()).padStart(2, '0')
+        const hours = String(endDate.getHours()).padStart(2, '0')
+        const minutes = String(endDate.getMinutes()).padStart(2, '0')
+        const formattedEndTime = `${year}-${month}-${day}T${hours}:${minutes}`
+        setFormData(prev => ({ ...prev, endTime: formattedEndTime }))
+      }
+    }
+  }, [formData.movieId, formData.startTime, movies])
+
   const filteredShowtimes = showtimes.filter(
     showtime =>
-      showtime.movieId.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (showtime.movieId.title || '')
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
       showtime.roomId.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       showtime.theaterId.name.toLowerCase().includes(searchTerm.toLowerCase()),
   )
@@ -155,6 +177,19 @@ const ShowtimeManagement: React.FC = () => {
     }
   }
 
+  const formatToLocalDatetime = (dateString: string) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+
+    const timezoneOffset = date.getTimezoneOffset() * 60000
+
+    const localISODate = new Date(date.getTime() - timezoneOffset)
+      .toISOString()
+      .slice(0, 16)
+
+    return localISODate // Kết quả trả về dạng: "YYYY-MM-DDTHH:mm"
+  }
+
   const handleEdit = (showtime: Showtime) => {
     setEditingShowtime(showtime)
     setFormData({
@@ -170,8 +205,8 @@ const ShowtimeManagement: React.FC = () => {
         typeof showtime.roomId === 'object' && showtime.roomId
           ? showtime.roomId._id
           : (showtime.roomId as any),
-      startTime: showtime.startTime.slice(0, 16),
-      endTime: showtime.endTime.slice(0, 16),
+      startTime: formatToLocalDatetime(showtime.startTime),
+      endTime: formatToLocalDatetime(showtime.endTime),
       price: showtime.price.toString(),
     })
     setIsEditModalOpen(true)
@@ -449,18 +484,18 @@ const ShowtimeManagement: React.FC = () => {
 
                 <div>
                   <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                    Thời gian kết thúc{' '}
+                    Thời gian kết thúc (Tự động){' '}
                     <span className='text-red-normal'>*</span>
                   </label>
                   <input
                     type='datetime-local'
                     value={formData.endTime}
-                    onChange={e =>
-                      setFormData({ ...formData, endTime: e.target.value })
-                    }
-                    disabled={loading}
-                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-normal disabled:bg-gray-100'
+                    disabled={true}
+                    className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-normal disabled:bg-gray-100 cursor-not-allowed'
                   />
+                  <p className='text-xs text-gray-500 mt-1'>
+                    Tính từ thời lượng phim + 15 phút buffer
+                  </p>
                 </div>
               </div>
 
