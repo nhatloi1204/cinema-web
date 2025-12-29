@@ -40,6 +40,8 @@ const MovieManagement: React.FC = () => {
     // rating: '',
     status: 'now_showing' as 'now_showing' | 'coming_soon' | 'offline',
   })
+  const [posterFile, setPosterFile] = useState<File | null>(null)
+  const [posterPreview, setPosterPreview] = useState<string>('')
 
   useEffect(() => {
     dispatch(fetchMovies())
@@ -54,6 +56,8 @@ const MovieManagement: React.FC = () => {
   const handleOpenAddModal = () => {
     setIsEditMode(false)
     setEditingMovie(null)
+    setPosterFile(null)
+    setPosterPreview('')
     setFormData({
       title: '',
       description: '',
@@ -72,6 +76,8 @@ const MovieManagement: React.FC = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false)
+    setPosterFile(null)
+    setPosterPreview('')
     setFormData({
       title: '',
       description: '',
@@ -88,6 +94,31 @@ const MovieManagement: React.FC = () => {
     setEditingMovie(null)
   }
 
+  const handlePosterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+      if (!allowedTypes.includes(file.type)) {
+        alert('Vui lòng chọn file ảnh (JPG, PNG, WEBP)')
+        return
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Kích thước file không được vượt quá 5MB')
+        return
+      }
+
+      setPosterFile(file)
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setPosterPreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -100,25 +131,35 @@ const MovieManagement: React.FC = () => {
       return
     }
 
-    const movieData = {
-      title: formData.title,
-      description: formData.description || '',
-      genre: formData.genre || '',
-      duration: parseInt(formData.duration),
-      releaseDate: formData.releaseDate || '',
-      poster: formData.poster || '',
-      trailerUrl: formData.trailerUrl || '',
-      director: formData.director || '',
-      cast: formData.cast.split(',').map(c => c.trim()) || [],
-      // rating: parseFloat(formData.rating) || 0,
-      status: formData.status,
+    // Check if creating new movie and no poster file is selected
+    if (!isEditMode && !posterFile) {
+      alert('Vui lòng chọn ảnh poster')
+      return
+    }
+
+    // Use FormData for file upload
+    const movieFormData = new FormData()
+    movieFormData.append('title', formData.title)
+    movieFormData.append('description', formData.description || '')
+    movieFormData.append('genre', formData.genre || '')
+    movieFormData.append('duration', formData.duration)
+    movieFormData.append('releaseDate', formData.releaseDate || '')
+    movieFormData.append('trailerUrl', formData.trailerUrl || '')
+    movieFormData.append('director', formData.director || '')
+    formData.cast.split(',').forEach((actor, index) => {
+      movieFormData.append(`cast`, actor.trim())
+    })
+    movieFormData.append('status', formData.status)
+
+    // Add poster file if selected
+    if (posterFile) {
+      movieFormData.append('poster', posterFile)
     }
 
     if (isEditMode && editingMovie) {
-      console.log(movieData.cast)
-      dispatch(updateMovie({ id: editingMovie._id, data: movieData }))
+      dispatch(updateMovie({ id: editingMovie._id, data: movieFormData }))
     } else {
-      dispatch(createMovie(movieData))
+      dispatch(createMovie(movieFormData))
     }
 
     handleCloseModal()
@@ -127,6 +168,8 @@ const MovieManagement: React.FC = () => {
   const handleEdit = (movie: Movie) => {
     setIsEditMode(true)
     setEditingMovie(movie)
+    setPosterFile(null)
+    setPosterPreview(movie.poster)
     setFormData({
       title: movie.title,
       description: movie.description,
@@ -439,18 +482,51 @@ const MovieManagement: React.FC = () => {
 
               <div>
                 <label className='block text-sm font-semibold text-gray-700 mb-2'>
-                  Poster URL
+                  Poster Ảnh{' '}
+                  {!isEditMode && <span className='text-red-normal'>*</span>}
                 </label>
-                <input
-                  type='text'
-                  value={formData.poster}
-                  onChange={e =>
-                    setFormData({ ...formData, poster: e.target.value })
-                  }
-                  placeholder='Nhập URL ảnh poster'
-                  disabled={loading}
-                  className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-normal disabled:bg-gray-100'
-                />
+
+                {/* Poster Preview */}
+                {(posterPreview || formData.poster) && (
+                  <div className='mb-4 relative inline-block'>
+                    <img
+                      src={posterPreview || formData.poster}
+                      alt='Poster preview'
+                      className='w-32 h-48 object-cover rounded-lg shadow-md'
+                    />
+                    <button
+                      type='button'
+                      onClick={() => {
+                        setPosterFile(null)
+                        setPosterPreview('')
+                      }}
+                      className='absolute top-2 right-2 bg-red-normal text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-red-normalHover transition-colors'
+                    >
+                      ✕
+                    </button>
+                  </div>
+                )}
+
+                {/* File Upload Input */}
+                <div className='flex items-center gap-3'>
+                  <label className='flex-1 flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-blue-normal rounded-lg cursor-pointer hover:bg-blue-light transition-colors'>
+                    <span className='text-sm font-semibold text-blue-normal'>
+                      {posterFile
+                        ? 'Đã chọn: ' + posterFile.name
+                        : 'Chọn ảnh poster'}
+                    </span>
+                    <input
+                      type='file'
+                      accept='image/jpeg,image/png,image/webp'
+                      onChange={handlePosterChange}
+                      disabled={loading}
+                      className='hidden'
+                    />
+                  </label>
+                </div>
+                <p className='text-xs text-gray-500 mt-2'>
+                  Định dạng: JPG, PNG, WEBP | Tối đa 5MB
+                </p>
               </div>
 
               <div>

@@ -18,14 +18,19 @@ export const fetchMovies = createAsyncThunk<Movie[]>(
 
 export const createMovie = createAsyncThunk<
   Movie,
-  Partial<Movie>,
+  FormData | Partial<Movie>,
   { rejectValue: string }
 >('movies/createMovie', async (newMovie, { rejectWithValue }) => {
   try {
+    const isFormData = newMovie instanceof FormData
     const response = await axios.post(`${API_URL}/admin/movies`, newMovie, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: isFormData
+        ? {
+            'Content-Type': 'multipart/form-data',
+          }
+        : {
+            'Content-Type': 'application/json',
+          },
     })
     return response.data.data || response.data
   } catch (error: any) {
@@ -35,14 +40,19 @@ export const createMovie = createAsyncThunk<
 
 export const updateMovie = createAsyncThunk<
   Movie,
-  { id: string; data: Partial<Movie> },
+  { id: string; data: FormData | Partial<Movie> },
   { rejectValue: string }
 >('movies/updateMovie', async ({ id, data }, { rejectWithValue }) => {
   try {
+    const isFormData = data instanceof FormData
     const response = await axios.put(`${API_URL}/admin/movies/${id}`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: isFormData
+        ? {
+            'Content-Type': 'multipart/form-data',
+          }
+        : {
+            'Content-Type': 'application/json',
+          },
     })
     return response.data.data || response.data
   } catch (error: any) {
