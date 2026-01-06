@@ -6,8 +6,6 @@ import { Movie } from '../../store/movieData/movieType'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './index.css'
-import BookingModal from '../BookingModal'
-import { useState } from 'react'
 
 interface MovieSliderProps {
   title?: string
@@ -45,14 +43,6 @@ function MovieSlider({
     ],
   }
 
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
-
-  const handleBookNow = (movie: Movie) => {
-    setSelectedMovie(movie)
-  }
-
-  const closeModal = () => setSelectedMovie(null)
-
   return (
     <div
       className='w-full px-4 md:px-8 py-6'
@@ -85,14 +75,10 @@ function MovieSlider({
         <Slider {...settings}>
           {movies.map(movie => (
             <div key={movie._id} className='px-2'>
-              <MovieCard movie={movie} onBookNow={() => handleBookNow(movie)} />
+              <MovieCard movie={movie} />
             </div>
           ))}
         </Slider>
-      )}
-
-      {selectedMovie && (
-        <BookingModal movie={selectedMovie} onClose={closeModal} />
       )}
     </div>
   )

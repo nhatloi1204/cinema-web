@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+.copilot/
+
 # environment variables
 .env
 .env*.local

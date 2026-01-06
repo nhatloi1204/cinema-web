@@ -157,6 +157,7 @@ const MovieManagement: React.FC = () => {
     }
 
     if (isEditMode && editingMovie) {
+      console.log(movieFormData)
       dispatch(updateMovie({ id: editingMovie._id, data: movieFormData }))
     } else {
       dispatch(createMovie(movieFormData))

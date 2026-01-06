@@ -3,6 +3,8 @@ const pathNames = {
   LOGIN: 'Đăng nhập',
   MOVIES: 'Phim',
   MOVIE_DETAILS: 'Chi tiết phim',
+  SEAT_SELECTION: 'Chọn ghế',
+  PAYMENT: 'Thanh toán',
   NEWS: 'Tin tức & Ưu đãi',
   EVENTS: 'Sự kiện',
   ABOUT_US: {
