@@ -77,7 +77,8 @@ export default function BookingSuccess() {
             Đặt vé thành công!
           </h1>
           <p className='text-gray-300 text-lg'>
-            Vé của bạn đã được đặt thành công. Kiểm tra email để nhận vé điện tử.
+            Vé của bạn đã được đặt thành công. Kiểm tra email để nhận vé điện
+            tử.
           </p>
         </div>
 
@@ -201,14 +202,20 @@ export default function BookingSuccess() {
             <div className='text-blue-400 text-xl flex-shrink-0'>ℹ</div>
             <div className='text-blue-200 text-sm'>
               <p className='font-bold mb-1'>Vé điện tử của bạn</p>
-              <p>Vé sẽ được gửi đến email đăng ký trong vòng 5 phút. Vui lòng kiểm tra hộp thư (bao gồm thư rác).</p>
+              <p>
+                Vé sẽ được gửi đến email đăng ký trong vòng 5 phút. Vui lòng
+                kiểm tra hộp thư (bao gồm thư rác).
+              </p>
             </div>
           </div>
           <div className='flex gap-4 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-lg'>
             <div className='text-yellow-400 text-xl flex-shrink-0'>⚠</div>
             <div className='text-yellow-200 text-sm'>
               <p className='font-bold mb-1'>Lưu ý quan trọng</p>
-              <p>Vui lòng đến rạp cách giờ chiếu 15 phút để làm thủ tục và lấy vé. Mang theo số điện thoại hoặc mã đơn đặt vé.</p>
+              <p>
+                Vui lòng đến rạp cách giờ chiếu 15 phút để làm thủ tục và lấy
+                vé. Mang theo số điện thoại hoặc mã đơn đặt vé.
+              </p>
             </div>
           </div>
         </div>
