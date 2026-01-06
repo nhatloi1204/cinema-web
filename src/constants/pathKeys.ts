@@ -3,6 +3,8 @@ const pathKeys = {
   LOGIN: '/login',
   MOVIES: '/movies',
   MOVIE_DETAILS: '/movies/:id',
+  SEAT_SELECTION: '/seat-selection/:showtimeId',
+  PAYMENT: '/payment',
   NEWS: '/news',
   EVENTS: '/events',
   ABOUT_US: '/about-us',

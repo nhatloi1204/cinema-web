@@ -12,6 +12,8 @@
   "dependencies": {
     "@auth0/auth0-react": "^2.10.0",
     "@reduxjs/toolkit": "^2.7.0",
+    "@stripe/react-stripe-js": "^5.4.1",
+    "@stripe/stripe-js": "^8.6.1",
     "@tailwindcss/vite": "^4.0.13",
     "axios": "^1.8.4",
     "date-fns": "^4.1.0",

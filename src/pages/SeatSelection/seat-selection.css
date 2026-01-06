@@ -1,0 +1,22 @@
+/* Seat Selection Styles */
+
+.seat-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 8px;
+}
+
+.seat {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.seat:hover:not(.booked) {
+  transform: scale(1.1);
+}
+
+.seat-row-label {
+  user-select: none;
+  font-weight: 600;
+  color: #9ca3af;
+}

@@ -19,6 +19,23 @@ const userRoutes = [
     component: lazy(() => import('../pages/MovieDetail')),
   },
   {
+    path: pathKeys.SEAT_SELECTION,
+    title: pathNames.SEAT_SELECTION,
+    component: lazy(() => import('../pages/SeatSelection')),
+  },
+  {
+    path: pathKeys.PAYMENT,
+    title: pathNames.PAYMENT,
+    component: lazy(() => import('../pages/Payment')),
+    isProtected: true,
+  },
+  {
+    path: '/booking-success',
+    title: 'Đặt vé thành công',
+    component: lazy(() => import('../pages/BookingSuccess')),
+    isProtected: true,
+  },
+  {
     path: pathKeys.NEWS,
     title: pathNames.NEWS,
     component: lazy(() => import('../pages/News')),

@@ -5,10 +5,9 @@ import { IoStar } from 'react-icons/io5'
 
 interface MovieCardProps {
   movie: Movie
-  onBookNow?: () => void
 }
 
-function MovieCard({ movie, onBookNow }: MovieCardProps) {
+function MovieCard({ movie }: MovieCardProps) {
   return (
     <div className='flex flex-col h-[680px] rounded-2xl bg-gradient-to-b from-white to-gray-50 shadow-lg hover:shadow-2xl overflow-hidden transform transition-all duration-300 hover:-translate-y-3 border border-gray-200/50 group'>
       {/* Poster Image */}
@@ -60,12 +59,11 @@ function MovieCard({ movie, onBookNow }: MovieCardProps) {
         </div>
 
         {/* Button */}
-        <button
-          className='w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2'
-          onClick={onBookNow}
-        >
-          Đặt vé ngay
-        </button>
+        <Link to={`/movies/${movie._id}`} className='w-full'>
+          <button className='w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 active:from-blue-800 active:to-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2'>
+            Đặt vé ngay
+          </button>
+        </Link>
       </div>
     </div>
   )
