@@ -146,7 +146,7 @@ const MovieManagement: React.FC = () => {
     movieFormData.append('releaseDate', formData.releaseDate || '')
     movieFormData.append('trailerUrl', formData.trailerUrl || '')
     movieFormData.append('director', formData.director || '')
-    formData.cast.split(',').forEach((actor, index) => {
+    formData.cast.split(',').forEach(actor => {
       movieFormData.append(`cast`, actor.trim())
     })
     movieFormData.append('status', formData.status)

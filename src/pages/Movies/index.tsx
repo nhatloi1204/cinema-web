@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { fetchMovies } from '../../store/movieData/movieThunk'
 import {
   selectMovies,
-  selectMovieLoading,
-  selectMovieError,
+  // selectMovieLoading,
+  // selectMovieError,
 } from '../../store/movieData/movieSelector'
 
 function Movies() {

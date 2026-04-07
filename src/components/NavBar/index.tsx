@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { loginUser, logoutUser } from '../../store/userData/userThunk'
 import {
   selectUser,
-  selectUserLoading,
+  // selectUserLoading,
 } from '../../store/userData/userSelector'
 
 function NavBar() {
