@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Movie } from '../../store/movieData/movieType'
 import { formatDate } from '../../utils/formatDate'
-import { IoStar } from 'react-icons/io5'
+// import { IoStar } from 'react-icons/io5' // Commented out as it's unused
 
 interface MovieCardProps {
   movie: Movie

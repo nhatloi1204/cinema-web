@@ -24,7 +24,7 @@ function NavBar() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const user = useAppSelector(selectUser)
-  const loading = useAppSelector(selectUserLoading)
+  // const loading = useAppSelector(state => state.loading) // Commented out as it's unused
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const handleLogin = () => dispatch(loginUser())

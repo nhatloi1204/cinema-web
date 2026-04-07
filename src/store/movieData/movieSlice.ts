@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Movie, MoviesState } from './movieType'
+import { MoviesState } from './movieType'
 import {
   fetchMovies,
   createMovie,

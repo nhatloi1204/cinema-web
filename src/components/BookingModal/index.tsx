@@ -28,7 +28,9 @@ export default function BookingModal({
   onClose: () => void
 }) {
   const dispatch = useAppDispatch()
-  const showtimes: Showtime[] = useAppSelector(state => state.showtime.data)
+  const showtimes: Showtime[] = useAppSelector(
+    state => state.showtime.showtimes,
+  )
 
   const [selectedDate, setSelectedDate] = useState(() =>
     format(new Date(), 'yyyy-MM-dd'),

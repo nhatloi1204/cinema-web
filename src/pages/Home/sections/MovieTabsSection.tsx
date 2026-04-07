@@ -35,7 +35,7 @@ const MovieTabsSection: React.FC = () => {
         {[
           { key: 'nowShowing', label: 'Phim Đang Chiếu' },
           { key: 'comingSoon', label: 'Phim Sắp Chiếu' },
-          { key: 'specialShows', label: 'Suất Chiếu Đặc Biệt' },
+          // { key: 'specialShows', label: 'Suất Chiếu Đặc Biệt' },
         ].map(tab => (
           <button
             key={tab.key}

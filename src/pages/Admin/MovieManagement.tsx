@@ -276,7 +276,7 @@ const MovieManagement: React.FC = () => {
                 </tr>
               </thead>
               <tbody className='divide-y divide-gray-200'>
-                {filteredMovies.map((movie, index) => (
+                {filteredMovies.map(movie => (
                   <tr
                     key={movie._id}
                     className='hover:bg-gray-50 transition-colors duration-200'

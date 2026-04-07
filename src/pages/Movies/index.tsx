@@ -11,8 +11,8 @@ import {
 function Movies() {
   const dispatch = useAppDispatch()
   const movies = useAppSelector(selectMovies)
-  const loading = useAppSelector(selectMovieLoading)
-  const error = useAppSelector(selectMovieError)
+  // const loading = useAppSelector(selectMovieLoading) // Commented out as it's unused
+  // const error = useAppSelector(selectMovieError) // Commented out as it's unused
 
   useEffect(() => {
     dispatch(fetchMovies())
@@ -26,9 +26,9 @@ function Movies() {
   const moviesComingSoon = validMovies.filter(
     movie => movie.status === 'coming_soon',
   )
-  const moviesSpecialShows = validMovies.filter(
-    movie => movie.status === 'special',
-  )
+  // const moviesSpecialShows = validMovies.filter(
+  //   movie => movie.status === 'special',
+  // )
 
   return (
     <>
@@ -48,13 +48,13 @@ function Movies() {
         />
       </div>
 
-      <div className='py-20'>
+      {/* <div className='py-20'>
         <MovieSlider
           title='Suất chiếu đặc biệt'
           movies={moviesSpecialShows}
           readMoreBtn={true}
         />
-      </div>
+      </div> */}
     </>
   )
 }
