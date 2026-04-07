@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { fetchShopItems } from '../../../store/shopData/shopThunk'
 import {
   selectShopItems,
-  selectShopLoading,
+  // selectShopLoading,
 } from '../../../store/shopData/shopSelector'
 import { pathKeys } from '../../../constants'
 import ShopItemSlider from '../../../components/ShopItemSlider'

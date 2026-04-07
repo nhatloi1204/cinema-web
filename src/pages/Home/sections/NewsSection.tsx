@@ -2,10 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { fetchNews } from '../../../store/newsData/newsThunk'
-import {
-  selectNews,
-  selectNewsLoading,
-} from '../../../store/newsData/newsSelector'
+import { selectNews } from '../../../store/newsData/newsSelector'
 import { pathKeys } from '../../../constants'
 import NewsCard from '../../../components/NewsCard'
 
@@ -14,7 +11,6 @@ const NewsSection: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const news = useAppSelector(selectNews)
-  // const loading = useAppSelector(selectNewsLoading) // Commented out as it's unused
 
   useEffect(() => {
     if (!hasInitialized.current) {
