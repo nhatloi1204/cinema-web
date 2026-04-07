@@ -23,7 +23,7 @@ export const logoutUser = createAsyncThunk(
     } catch (error: any) {
       console.error('Logout error:', error)
       // Dù có lỗi, vẫn resolve để thunk complete
-      return null
+      return rejectWithValue('Failed to logout')
     }
   },
 )

@@ -48,12 +48,9 @@ const showtimeSlice = createSlice({
         state.loading = true
         state.error = null
       })
-      .addCase(
-        fetchShowtimeById.fulfilled,
-        (state, action: PayloadAction<Showtime>) => {
-          state.loading = false
-        },
-      )
+      .addCase(fetchShowtimeById.fulfilled, state => {
+        state.loading = false
+      })
       .addCase(fetchShowtimeById.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload as string
