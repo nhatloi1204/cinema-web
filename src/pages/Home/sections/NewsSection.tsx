@@ -14,7 +14,7 @@ const NewsSection: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const news = useAppSelector(selectNews)
-  const loading = useAppSelector(selectNewsLoading)
+  // const loading = useAppSelector(selectNewsLoading) // Commented out as it's unused
 
   useEffect(() => {
     if (!hasInitialized.current) {

@@ -14,7 +14,7 @@ const ShopMenuSection: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const shopItems = useAppSelector(selectShopItems)
-  const loading = useAppSelector(selectShopLoading)
+  // const loading = useAppSelector(selectShopLoading) // Commented out as it's unused
 
   useEffect(() => {
     if (!hasInitialized.current) {
