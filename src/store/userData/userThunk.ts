@@ -40,3 +40,19 @@ export const fetchProfile = createAsyncThunk<User>(
     }
   },
 )
+
+// UPDATE PROFILE
+export const updateProfile = createAsyncThunk<
+  User,
+  Partial<User>,
+  { rejectValue: string }
+>('user/updateProfile', async (userData, { rejectWithValue }) => {
+  try {
+    const res = await axios.put(`${API_URL}/user/profile`, userData)
+    return res.data.user
+  } catch (error: any) {
+    return rejectWithValue(
+      error.response?.data?.message || 'Failed to update profile',
+    )
+  }
+})

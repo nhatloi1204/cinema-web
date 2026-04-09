@@ -1,17 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchProfile, logoutUser } from './userThunk'
+import { fetchProfile, logoutUser, updateProfile } from './userThunk'
 import { User } from './userType'
 
 interface UserState {
   user: User | null
   loading: boolean
   isInitialized: boolean
+  updating: boolean
+  updateError: string | null
 }
 
 const initialState: UserState = {
   user: null,
   loading: true,
   isInitialized: false,
+  updating: false,
+  updateError: null,
 }
 
 const userSlice = createSlice({
@@ -20,6 +24,9 @@ const userSlice = createSlice({
   reducers: {
     clearUser: state => {
       state.user = null
+    },
+    clearUpdateError: state => {
+      state.updateError = null
     },
   },
   extraReducers: builder => {
@@ -53,8 +60,23 @@ const userSlice = createSlice({
         state.user = null
         state.isInitialized = true
       })
+
+      // ===== UPDATE PROFILE =====
+      .addCase(updateProfile.pending, state => {
+        state.updating = true
+        state.updateError = null
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.updating = false
+        state.user = action.payload
+        state.updateError = null
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.updating = false
+        state.updateError = action.payload || 'Failed to update profile'
+      })
   },
 })
 
-export const { clearUser } = userSlice.actions
+export const { clearUser, clearUpdateError } = userSlice.actions
 export default userSlice.reducer
