@@ -1,5 +1,4 @@
 import contactImg from '../../assets/images/contactPage/contact1.png'
-import { BsArrowRightCircle } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
 function Contact() {
