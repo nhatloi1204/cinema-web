@@ -1,16 +1,7 @@
 import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { fetchEvents } from '../../store/eventData/eventThunk'
-import { selectEvents } from '../../store/eventData/eventSelector'
 import { FaBuilding } from 'react-icons/fa'
 
 function AboutUs() {
-  const dispatch = useAppDispatch()
-  const events = useAppSelector(selectEvents)
-
-  useEffect(() => {
-    dispatch(fetchEvents())
-  }, [dispatch])
 
   const brandValues = [
     {
