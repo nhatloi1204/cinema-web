@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FaPlus, FaEdit, FaTrash, FaSearch } from 'react-icons/fa'
+import { FaPlus, FaEdit, FaTrash, FaSearch, FaMagic } from 'react-icons/fa'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import {
   selectShowtimes,
@@ -28,6 +28,8 @@ import {
   selectTheaterLoading,
 } from '../../store/theaterData/theaterSelector'
 import { fetchTheaters } from '../../store/theaterData/theaterThunk'
+import ScheduleGeneratorForm from '../../components/Admin/ScheduleGeneratorForm'
+import PreviewTable from '../../components/Admin/PreviewTable'
 
 const ShowtimeManagement: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -42,6 +44,7 @@ const ShowtimeManagement: React.FC = () => {
   const theatersLoading = useAppSelector(selectTheaterLoading)
 
   const [searchTerm, setSearchTerm] = useState('')
+  const [showGenerator, setShowGenerator] = useState(false)
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [editingShowtime, setEditingShowtime] = useState<Showtime | null>(null)
@@ -226,7 +229,7 @@ const ShowtimeManagement: React.FC = () => {
   return (
     <div className='space-y-6'>
       {/* Header */}
-      <div className='flex justify-between items-center'>
+      <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>
         <div>
           <h1 className='text-3xl font-bungee text-gray-800'>
             Quản lý Suất Chiếu
@@ -238,13 +241,29 @@ const ShowtimeManagement: React.FC = () => {
             </span>
           </p>
         </div>
-        <button
-          onClick={handleOpenAddModal}
-          className='flex items-center gap-2 bg-blue-normal text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-normalHover transition-colors duration-200 shadow-md'
-        >
-          <FaPlus /> Thêm Suất Chiếu
-        </button>
+        <div className='flex flex-col md:flex-row gap-3 w-full md:w-auto'>
+          <button
+            onClick={() => setShowGenerator(!showGenerator)}
+            className='flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200 shadow-md'
+          >
+            <FaMagic /> {showGenerator ? 'Ẩn Generator' : 'Tạo Tự Động'}
+          </button>
+          <button
+            onClick={handleOpenAddModal}
+            className='flex items-center justify-center gap-2 bg-blue-normal text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-normalHover transition-colors duration-200 shadow-md'
+          >
+            <FaPlus /> Thêm Suất
+          </button>
+        </div>
       </div>
+
+      {/* Schedule Generator */}
+      {showGenerator && (
+        <div className='space-y-6'>
+          <ScheduleGeneratorForm />
+          <PreviewTable />
+        </div>
+      )}
 
       {/* Error Message */}
       {error && (

@@ -82,11 +82,15 @@ export default function MovieDetail() {
     }
   }, [uniqueDates, selectedDate])
 
+  const getCurrentTime = () => new Date()
+
   // Group showtimes by date and theater
   const showtimesByDateAndTheater = selectedDate
     ? showtimes
         .filter(
-          showtime => getDateFromString(showtime.startTime) === selectedDate,
+          showtime =>
+            getDateFromString(showtime.startTime) === selectedDate &&
+            new Date(showtime.startTime) > getCurrentTime(),
         )
         .reduce(
           (acc, showtime) => {
@@ -363,24 +367,20 @@ export default function MovieDetail() {
 
                             {/* Showtimes List */}
                             {expandedTheater === theaterId && (
-                              <div className='bg-gray-700/50 p-3 space-y-2'>
-                                {theaterShowtimes.map(showtime => (
-                                  <button
-                                    key={showtime._id}
-                                    onClick={() =>
-                                      handleShowtimeClick(showtime)
-                                    }
-                                    className='w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-blue-500 hover:to-blue-600 text-white px-3 py-2 rounded-lg transition-all duration-200 text-sm font-bold flex flex-col items-center gap-1'
-                                  >
-                                    <span className='text-lg'>
+                              <div className='bg-gray-700/50 p-4'>
+                                <div className='flex flex-wrap gap-2'>
+                                  {theaterShowtimes.map(showtime => (
+                                    <button
+                                      key={showtime._id}
+                                      onClick={() =>
+                                        handleShowtimeClick(showtime)
+                                      }
+                                      className='bg-gradient-to-r from-gray-600 to-gray-700 hover:from-blue-500 hover:to-blue-600 text-white px-3 py-2 rounded-lg transition-all duration-200 text-sm font-bold flex-shrink-0'
+                                    >
                                       {formatTime(showtime.startTime)}
-                                    </span>
-                                    <span className='text-xs text-gray-300'>
-                                      {showtime.roomId.name} •{' '}
-                                      {showtime.price.toLocaleString('vi-VN')}đ
-                                    </span>
-                                  </button>
-                                ))}
+                                    </button>
+                                  ))}
+                                </div>
                               </div>
                             )}
                           </div>

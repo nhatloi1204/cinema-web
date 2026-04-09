@@ -17,7 +17,7 @@ const BannerSection: React.FC = () => {
     }
   }, [dispatch])
 
-  const slides = banners
+  const slides = [...banners]
     .sort((a, b) => a.order - b.order)
     .map(banner => ({
       id: banner._id,

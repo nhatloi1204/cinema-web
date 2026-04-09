@@ -1,4 +1,4 @@
-import { RootState } from '../store'
+import { RootState } from '../rootReducer'
 
 export const selectTheaters = (state: RootState) => state.theater.theaters
 export const selectSelectedTheater = (state: RootState) =>
