@@ -11,6 +11,7 @@ interface Slide {
   image: string
   title: string
   subtitle: string
+  link?: string
 }
 
 interface BannerCarouselProps {
@@ -87,23 +88,50 @@ export default function BannerCarousel({
             key={slide.id}
             className='relative w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] outline-none'
           >
-            <img
-              src={slide.image}
-              loading='lazy'
-              alt={slide.title}
-              className='w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all duration-500'
-            />
+            {slide.link ? (
+              <a
+                href={slide.link}
+                className='block w-full h-full cursor-pointer'
+              >
+                <img
+                  src={slide.image}
+                  loading='lazy'
+                  alt={slide.title}
+                  className='w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all duration-500'
+                />
 
-            <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent'>
-              <div className='absolute bottom-12 left-6 sm:left-10 md:left-14 lg:left-20 max-w-2xl text-white'>
-                <h2 className='text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold drop-shadow-lg leading-tight mb-2 md:mb-4'>
-                  {slide.title}
-                </h2>
-                <p className='text-sm sm:text-base md:text-lg drop-shadow-md line-clamp-2 md:line-clamp-none'>
-                  {slide.subtitle}
-                </p>
-              </div>
-            </div>
+                <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent'>
+                  <div className='absolute bottom-12 left-6 sm:left-10 md:left-14 lg:left-20 max-w-2xl text-white'>
+                    <h2 className='text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold drop-shadow-lg leading-tight mb-2 md:mb-4 hover:text-blue-400 transition-colors'>
+                      {slide.title}
+                    </h2>
+                    <p className='text-sm sm:text-base md:text-lg drop-shadow-md line-clamp-2 md:line-clamp-none'>
+                      {slide.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            ) : (
+              <>
+                <img
+                  src={slide.image}
+                  loading='lazy'
+                  alt={slide.title}
+                  className='w-full h-full object-cover brightness-75 group-hover:brightness-90 transition-all duration-500'
+                />
+
+                <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent'>
+                  <div className='absolute bottom-12 left-6 sm:left-10 md:left-14 lg:left-20 max-w-2xl text-white'>
+                    <h2 className='text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold drop-shadow-lg leading-tight mb-2 md:mb-4'>
+                      {slide.title}
+                    </h2>
+                    <p className='text-sm sm:text-base md:text-lg drop-shadow-md line-clamp-2 md:line-clamp-none'>
+                      {slide.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         ))}
       </Slider>

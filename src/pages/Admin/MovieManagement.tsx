@@ -147,7 +147,7 @@ const MovieManagement: React.FC = () => {
     movieFormData.append('trailerUrl', formData.trailerUrl || '')
     movieFormData.append('director', formData.director || '')
     formData.cast.split(',').forEach(actor => {
-      movieFormData.append(`cast`, actor.trim())
+      movieFormData.append('cast', actor.trim())
     })
     movieFormData.append('status', formData.status)
 
@@ -157,9 +157,12 @@ const MovieManagement: React.FC = () => {
     }
 
     if (isEditMode && editingMovie) {
-      console.log(movieFormData)
+      // console.log(movieFormData)
       dispatch(updateMovie({ id: editingMovie._id, data: movieFormData }))
     } else {
+      for (let pair of movieFormData.entries()) {
+        console.log(pair[0], pair[1])
+      }
       dispatch(createMovie(movieFormData))
     }
 

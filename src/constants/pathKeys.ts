@@ -19,6 +19,7 @@ const pathKeys = {
   ADMIN_ROOMS: 'rooms',
   ADMIN_MOVIES: 'movies',
   ADMIN_SHOWTIMES: 'showtimes',
+  ADMIN_BANNERS: 'banners',
 
   // ADMIN_DASHBOARD: "/admin/dashboard",
   // ADMIN_USERS: "/admin/users",

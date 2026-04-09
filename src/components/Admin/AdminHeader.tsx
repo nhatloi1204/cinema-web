@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser } from '../../store/userData/userSelector'
 import { logoutUser } from '../../store/userData/userThunk'
-import { FaSignOutAlt, FaUser, FaChevronDown } from 'react-icons/fa'
+import { FaSignOutAlt, FaUser, FaChevronDown, FaBars } from 'react-icons/fa'
 
-const AdminHeader: React.FC = () => {
+const AdminHeader: React.FC<{ onMenuClick?: () => void }> = ({
+  onMenuClick,
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
@@ -34,20 +36,32 @@ const AdminHeader: React.FC = () => {
   }
 
   return (
-    <header className='bg-white shadow-md border-b border-gray-200 px-8 py-4'>
+    <header className='bg-white shadow-md border-b border-gray-200 px-4 md:px-8 py-4'>
       <div className='flex items-center justify-between'>
-        <div>
-          <h1 className='text-2xl font-bungee text-gray-800'>Dashboard</h1>
-          <p className='text-sm text-gray-500'>
-            Chào mừng đến với trang quản lý
-          </p>
+        <div className='flex items-center gap-4'>
+          {onMenuClick && (
+            <button
+              onClick={onMenuClick}
+              className='md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors'
+            >
+              <FaBars className='text-xl text-gray-700' />
+            </button>
+          )}
+          <div>
+            <h1 className='text-xl md:text-2xl font-bungee text-gray-800'>
+              Dashboard
+            </h1>
+            <p className='text-xs md:text-sm text-gray-500'>
+              Chào mừng đến với trang quản lý
+            </p>
+          </div>
         </div>
 
         {/* User Profile */}
         <div className='relative' ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className='flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 border border-gray-200'
+            className='flex items-center gap-3 px-3 md:px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 border border-gray-200'
           >
             <img
               src={user?.avatar || '/default-avatar.png'}

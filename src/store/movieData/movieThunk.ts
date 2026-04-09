@@ -32,6 +32,7 @@ export const createMovie = createAsyncThunk<
             'Content-Type': 'application/json',
           },
     })
+    
     return response.data.data || response.data
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.message || 'Lỗi khi tạo phim')

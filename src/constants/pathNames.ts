@@ -22,6 +22,7 @@ const pathNames = {
   ADMIN_ROOMS: 'Quản lý Phòng',
   ADMIN_MOVIES: 'Quản lý Phim',
   ADMIN_SHOWTIMES: 'Quản lý Suất Chiếu',
+  ADMIN_BANNERS: 'Quản lý Banner',
 
   NOT_FOUND: '404 - Not Found',
 }

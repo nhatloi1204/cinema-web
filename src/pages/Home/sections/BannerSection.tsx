@@ -1,17 +1,31 @@
-import React from 'react'
-import { useAppSelector } from '../../../store/hooks'
-import { selectEvents } from '../../../store/eventData/eventSelector'
+import React, { useEffect, useRef } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { selectBanners } from '../../../store/bannerData/bannerSelector'
+import { fetchBanners } from '../../../store/bannerData/bannerThunk'
 import Carousel from '../../../components/Carousel'
 
 const BannerSection: React.FC = () => {
-  const events = useAppSelector(selectEvents)
+  const dispatch = useAppDispatch()
+  const banners = useAppSelector(selectBanners)
+  // const loading = useAppSelector(selectBannerLoading)
+  const hasInitialized = useRef(false)
 
-  const slides = events.map(event => ({
-    id: event._id,
-    image: event.image,
-    title: event.title,
-    subtitle: event.title, 
-  }))
+  useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      dispatch(fetchBanners())
+    }
+  }, [dispatch])
+
+  const slides = banners
+    .sort((a, b) => a.order - b.order)
+    .map(banner => ({
+      id: banner._id,
+      image: banner.image,
+      title: banner.title,
+      subtitle: banner.subtitle || '',
+      link: banner.link,
+    }))
 
   return (
     <div className='w-full'>

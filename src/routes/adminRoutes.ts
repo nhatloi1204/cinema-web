@@ -8,6 +8,7 @@ const MovieManagement = lazy(() => import('../pages/Admin/MovieManagement'))
 const ShowtimeManagement = lazy(
   () => import('../pages/Admin/ShowtimeManagement'),
 )
+const BannerManagement = lazy(() => import('../pages/Admin/BannerManagement'))
 
 const adminRoutes = [
   {
@@ -34,6 +35,11 @@ const adminRoutes = [
     path: pathKeys.ADMIN_SHOWTIMES,
     title: pathNames.ADMIN_SHOWTIMES,
     component: ShowtimeManagement,
+  },
+  {
+    path: pathKeys.ADMIN_BANNERS,
+    title: pathNames.ADMIN_BANNERS,
+    component: BannerManagement,
   },
 ]
 
