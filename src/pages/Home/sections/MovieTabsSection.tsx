@@ -31,7 +31,7 @@ const MovieTabsSection: React.FC = () => {
   return (
     <>
       {/* Tabs */}
-      <div className='flex justify-center gap-6 px-36 pt-10 bg-white'>
+      <div className='flex justify-center gap-2 md:gap-6 px-[50px] md:px-8 lg:px-16 pt-4 md:pt-6 lg:pt-10 bg-white overflow-x-auto mx-auto max-w-7xl'>
         {[
           { key: 'nowShowing', label: 'Phim Đang Chiếu' },
           { key: 'comingSoon', label: 'Phim Sắp Chiếu' },
@@ -39,7 +39,7 @@ const MovieTabsSection: React.FC = () => {
         ].map(tab => (
           <button
             key={tab.key}
-            className={`py-2 px-4 rounded-t-lg transition w-[25%] uppercase font-bungee text-blue-normal ${
+            className={`py-2 px-3 md:px-4 rounded-t-lg transition text-xs md:text-sm uppercase font-bungee text-blue-normal whitespace-nowrap ${
               activeTab === tab.key
                 ? 'bg-blue-normal text-white'
                 : 'bg-gray-200'
@@ -52,7 +52,7 @@ const MovieTabsSection: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className='bg-white m-8 rounded-lg overflow-hidden min-h-[600px]'>
+      <div className='bg-white mx-4 md:mx-auto md:max-w-7xl rounded-lg overflow-hidden min-h-[300px] md:min-h-[500px] lg:min-h-[600px]'>
         <AnimatePresence mode='wait'>
           <motion.div
             key={activeTab}

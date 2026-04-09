@@ -1,163 +1,120 @@
-import Carousel from '../../components/Carousel'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { fetchEvents } from '../../store/eventData/eventThunk'
 import { selectEvents } from '../../store/eventData/eventSelector'
+import { FaBuilding } from 'react-icons/fa'
 
 function AboutUs() {
   const dispatch = useAppDispatch()
   const events = useAppSelector(selectEvents)
-  const slides = events.map(event => ({
-    id: event._id,
-    image: event.image,
-    title: event.title,
-    subtitle: event.title,
-  }))
 
   useEffect(() => {
     dispatch(fetchEvents())
   }, [dispatch])
 
+  const brandValues = [
+    {
+      title: 'CÂU CHUYỆN THƯƠNG HIỆU',
+      description:
+        'SPIXAL là thương hiệu rạp chiếu phim lấy tên từ SPIRIT (tinh thần) + Pixel (đơn vị điểm ảnh nhỏ nhất). Mong muốn trở thành nơi khán giả tìm thấy sự kết nối về cảm xúc và trải nghiệm đặc biệt.',
+      icon: '🎬',
+      color: 'text-blue-normal',
+    },
+    {
+      title: '#NĂNG ĐỘNG',
+      description:
+        'Xây dựng hình ảnh tươi mới tràn đầy năng lượng. Các quảng cáo và video của Spixal thể hiện sự sôi động, trẻ trung với sắc màu tươi sáng.',
+      icon: '⚡',
+      color: 'text-orange-500',
+    },
+    {
+      title: '#KẾT NỐI',
+      description:
+        'SPIXAL là nơi gắn kết cảm xúc - Tạo không gian để khách hàng thoải mái chia sẻ niềm vui, sự đồng cảm hay sự hồi hộp cùng nhau.',
+      icon: '🤝',
+      color: 'text-yellow-normal',
+    },
+    {
+      title: '#HIỆN ĐẠI',
+      description:
+        'Các thiết kế mang phong cách hiện đại, nâng cao trải nghiệm khách hàng bằng cách cập nhập công nghệ màn hình chiếu phim mới.',
+      icon: '🚀',
+      color: 'text-red-normal',
+    },
+  ]
+
   return (
     <>
-      <Carousel slides={slides} autoSlide={false} autoSlideInterval={3000} />
-
-      <div className='bg-white w-full px-40 py-20'>
-        <div className='grid grid-cols-2 grid-rows-9  gap-x-20 gap-y-14'>
-          <img
-            src='/src/assets/images/aboutUsPage/about-us1.png'
-            alt='aboutUs1'
-            className='row-span-3 mx-auto'
-          />
-
-          <div className='row-span-2 place-self-center'>
-            <h1 className='uppercase font-bungee text-5xl text-blue-normal pb-6 w-2/3'>
-              CÂU CHUYỆN THƯƠNG HIỆU
-            </h1>
-            <p>
-              SPIXAL là thương hiệu rạp chiếu phim lấy tên từ SPIRIT (tinh thần)
-              + Pixal (đồng âm của Pixel, là đơn vị là điểm ảnh nhỏ nhất có thể
-              hiển thị trên màn hình). Khác với các rạp chiếu phim truyền thống,
-              SPIXAL mong muốn trở thành nơi khán giả tìm thấy sự kết nối về cảm
-              xúc và trải nghiệm đặc biệt qua từng thiết kế của mình. Các thiết
-              kế và câu chuyện thương hiệu lấy cảm hứng từ những cung bậc cảm
-              xúc của khán giả qua mỗi một tác phẩm điện ảnh.
-            </p>
-          </div>
-
-          <img
-            src='/src/assets/images/aboutUsPage/about-us2.png'
-            alt='aboutUs1'
-            className='row-span-3 col-start-2 row-start-3 mx-auto'
-          />
-
-          <div className='row-start-4 text-right'>
-            <h1 className='uppercase font-bungee text-5xl text-blue-normal pb-6'>
-              #NĂNG ĐỘNG
-            </h1>
-            <p>
-              Xây dựng hình ảnh tươi mới và tràn đầy năng lượng, các hình ảnh
-              quảng cáo, đồ họa và video của Spixal nên luôn thể hiện sự sôi
-              động, trẻ trung, với các sắc màu tươi sáng và bắt mắt phù hợp với
-              giới trẻ
-            </p>
-          </div>
-
-          <img
-            src='/src/assets/images/aboutUsPage/about-us3.png'
-            alt='aboutUs1'
-            className='row-span-3 row-start-5 mx-auto'
-          />
-
-          <div className='col-start-2 row-start-6 my-auto'>
-            <h1 className='uppercase font-bungee text-5xl text-yellow-normal pb-6'>
-              #KẾT NỐI
-            </h1>
-            <p>
-              SPIXAL mong muốn là nơi gắn kết cảm xúc - Tạo nên không gian và
-              trải nghiệm gắn bó với khách hàng khi xem phim mà người xem có thể
-              thoải mái chia sẻ niềm vui, sự đồng cảm hay sự hồi hộp, sợ hãi
-              cùng nhau.
-            </p>
-          </div>
-
-          <img
-            src='/src/assets/images/aboutUsPage/about-us4.png'
-            alt='aboutUs1'
-            className='row-span-3 col-start-2 row-start-7 mx-auto'
-          />
-
-          <div className='row-span-2 row-start-8 text-right'>
-            <h1 className='uppercase font-bungee text-5xl text-red-normal  pb-6'>
-              #HIỆN ĐẠI
-            </h1>
-            <p>
-              Các thiết kế của SPIXAL mang phong cách hiện đại, đồng thời nâng
-              cao trải nghiệm của khách hàng bằng cách cập nhập các công nghệ
-              màn hình chiếu phim mới.
-            </p>
+      {/* Banner Section */}
+      <div className='bg-gradient-to-r from-blue-normal to-blue-light py-8 md:py-16 lg:py-24'>
+        <div className='w-screen overflow-x-hidden px-[50px] md:px-8 lg:px-16'>
+          <div className='mx-auto max-w-7xl'>
+            <div className='text-center'>
+              <h1 className='text-3xl md:text-4xl lg:text-6xl font-bungee text-white mb-2 md:mb-4 flex items-center justify-center gap-2 md:gap-3'>
+                <FaBuilding className='text-xl md:text-3xl lg:text-5xl' />
+                Về SPIXAL
+              </h1>
+              <p className='text-xs md:text-sm lg:text-base text-blue-100'>
+                Khám phá câu chuyện và giá trị của thương hiệu rạp chiếu phim
+                SPIXAL
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className='px-40 py-20 bg-blue-light'>
-        <div className='text-center w-2/3 mx-auto pb-16'>
-          <h1 className='text-5xl text-blue-normal uppercase font-bungee pb-7'>
-            KHÔNG GIAN RẠP
-          </h1>
-          <p>
-            Không gian tại rạp phim sẽ là nơi để mọi người gắn kết và chia sẻ
-            cảm xúc với nhau. Các bộ phim sẽ mang lại cho khán giả những cung
-            bậc cảm xúc khác nhau, điều này tạo ra tính kết nối giữa các tác
-            phẩm điện ảnh tới khán giả, và sự đồng điệu trong cảm xúc của người
-            xem.
-          </p>
+      {/* Brand Values Section */}
+      <div className='bg-white py-8 md:py-12 lg:py-16 px-[50px] md:px-8 lg:px-16 mx-auto max-w-7xl'>
+        <h2 className='text-2xl md:text-3xl lg:text-4xl text-blue-normal font-bungee text-center mb-8 md:mb-12 lg:mb-16 uppercase'>
+          Giá Trị Thương Hiệu
+        </h2>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6'>
+          {brandValues.map((value, index) => (
+            <div
+              key={index}
+              className='bg-gradient-to-b from-white to-gray-50 rounded-2xl p-4 md:p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100'
+            >
+              <div className='text-3xl md:text-4xl mb-3'>{value.icon}</div>
+              <h3
+                className={`${value.color} font-bungee text-sm md:text-base lg:text-lg uppercase mb-2 md:mb-3`}
+              >
+                {value.title}
+              </h3>
+              <p className='text-xs md:text-sm text-gray-600 line-clamp-4'>
+                {value.description}
+              </p>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className='flex flex-col w-full gap-7 items-center'>
-          <img
-            src='/src/assets/images/aboutUsPage/rap2.png'
-            className='rounded-3xl object-cover'
-          />
-          <div className='flex gap-x-7 w-full '>
-            <div className='w-1/2 rounded-3xl overflow-hidden'>
+      {/* Theater Space */}
+      <div className='bg-blue-light py-8 md:py-12 lg:py-16 px-[50px] md:px-8 lg:px-16'>
+        <div className='mx-auto max-w-7xl'>
+          <h2 className='text-2xl md:text-3xl lg:text-4xl text-blue-normal font-bungee text-center mb-4 md:mb-6 uppercase'>
+            Không Gian Rạp
+          </h2>
+          <p className='text-xs md:text-sm lg:text-base text-center mx-auto max-w-2xl mb-8 md:mb-12 text-gray-700'>
+            Không gian tại rạp phim là nơi mọi người gắn kết và chia sẻ cảm xúc.
+            Các bộ phim mang lại những cung bậc cảm xúc khác nhau, tạo ra tính
+            kết nối giữa tác phẩm điện ảnh và khán giả.
+          </p>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6'>
+            <div className='rounded-2xl overflow-hidden'>
               <img
                 src='/src/assets/images/aboutUsPage/khongian.png'
-                className='w-full object-cover'
+                className='w-full h-40 md:h-56 lg:h-72 object-cover'
               />
             </div>
-
-            <div className='w-1/2 rounded-3xl overflow-hidden'>
+            <div className='rounded-2xl overflow-hidden'>
               <img
                 src='/src/assets/images/aboutUsPage/menumanhinh.png'
-                className='w-full object-cover'
+                className='w-full h-40 md:h-56 lg:h-72 object-cover'
               />
             </div>
           </div>
-          <img
-            src='/src/assets/images/aboutUsPage/rap2(1).png'
-            className='rounded-3xl object-cover'
-          />
         </div>
-
-        {/* <div className='grid grid-cols-2 grid-rows-3 gap-7'>
-          <img
-            src='/src/assets/images/aboutUsPage/rap2.png'
-            className='col-span-2 mx-auto rounded-2xl object-cover place-self-stretch'
-          />
-          <img
-            src='/src/assets/images/aboutUsPage/khongian.png'
-            className='row-start-2 rounded-2xl object-cover max-h-80 place-self-stretch'
-          />
-          <img
-            src='/src/assets/images/aboutUsPage/menumanhinh.png'
-            className='row-start-2 rounded-2xl object-cover max-h-80 place-self-stretch'
-          />
-          <img
-            src='/src/assets/images/aboutUsPage/rap2(1).png'
-            className='col-span-2 mx-auto rounded-2xl object-cover place-self-stretch'
-          />
-        </div> */}
       </div>
     </>
   )
