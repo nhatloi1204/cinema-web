@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { FaBuilding } from 'react-icons/fa'
 
 function AboutUs() {
