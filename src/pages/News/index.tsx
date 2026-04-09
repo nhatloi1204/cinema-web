@@ -18,12 +18,14 @@ function News() {
 
   // Events
   const events = useAppSelector(selectEvents)
+/*
   const slides = events.map(event => ({
     id: event._id,
     image: event.image,
     title: event.title,
     subtitle: event.title,
   }))
+*/
 
   useEffect(() => {
     dispatch(fetchNews())
