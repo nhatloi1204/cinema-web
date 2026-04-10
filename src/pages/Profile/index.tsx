@@ -4,6 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser } from '../../store/userData/userSelector'
 import { updateProfile } from '../../store/userData/userThunk'
 import {
+  selectBookings,
+  selectBookingLoading,
+} from '../../store/bookingData/bookingSelector'
+import { getUserBookings } from '../../store/bookingData/bookingThunk'
+import {
   FaArrowLeft,
   FaUser,
   FaEnvelope,
@@ -18,27 +23,12 @@ import {
   FaCheckCircle,
 } from 'react-icons/fa'
 
-interface Booking {
-  _id: string
-  bookingId: string
-  movieTitle: string
-  theaterName: string
-  roomName: string
-  date: string
-  startTime: string
-  endTime: string
-  seats: string[]
-  totalPrice: number
-  status: 'confirmed' | 'completed' | 'cancelled'
-  createdAt: string
-}
-
 export default function UserProfile() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [loadingBookings, setLoadingBookings] = useState(false)
+  const bookings = useAppSelector(selectBookings)
+  const loadingBookings = useAppSelector(selectBookingLoading)
   const [activeTab, setActiveTab] = useState<'info' | 'bookings'>('info')
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
@@ -66,28 +56,9 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (activeTab === 'bookings' && bookings.length === 0) {
-      fetchBookings()
+      dispatch(getUserBookings())
     }
-  }, [activeTab])
-
-  const fetchBookings = async () => {
-    try {
-      setLoadingBookings(true)
-      const apiUrl = import.meta.env.VITE_API_URL
-      const response = await fetch(`${apiUrl}/user/bookings`, {
-        credentials: 'include',
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        setBookings(data.data || [])
-      }
-    } catch (error) {
-      console.error('Failed to fetch bookings:', error)
-    } finally {
-      setLoadingBookings(false)
-    }
-  }
+  }, [activeTab, dispatch])
 
   if (!user) {
     return (
@@ -136,10 +107,10 @@ export default function UserProfile() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed':
+      case 'paid':
         return 'bg-green-900/20 border-green-700/50 text-green-400'
-      case 'completed':
-        return 'bg-blue-900/20 border-blue-700/50 text-blue-400'
+      case 'pending':
+        return 'bg-yellow-900/20 border-yellow-700/50 text-yellow-400'
       case 'cancelled':
         return 'bg-red-900/20 border-red-700/50 text-red-400'
       default:
@@ -149,10 +120,10 @@ export default function UserProfile() {
 
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'confirmed':
-        return 'Đã xác nhận'
-      case 'completed':
-        return 'Đã xem'
+      case 'paid':
+        return 'Đã thanh toán'
+      case 'pending':
+        return 'Chờ thanh toán'
       case 'cancelled':
         return 'Đã hủy'
       default:
@@ -350,101 +321,155 @@ export default function UserProfile() {
               </div>
             ) : (
               <div className='space-y-4'>
-                {bookings.map(booking => (
-                  <div
-                    key={booking._id}
-                    className='bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-blue-600/50 transition-all'
-                  >
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
-                      {/* Movie Title */}
-                      <div className='flex items-start gap-3'>
-                        <div className='p-2 bg-blue-600/20 border border-blue-500/50 rounded-lg flex-shrink-0'>
-                          <FaTicketAlt className='text-blue-400 text-lg' />
+                {bookings.map((booking: any) => {
+                  const showtime = booking.showtimeId as any
+                  console.log('Booking:', booking)
+                  console.log('Showtime:', showtime)
+
+                  // Extract from populated showtime data
+                  const movie =
+                    typeof showtime?.movieId === 'object'
+                      ? showtime.movieId
+                      : null
+                  const room =
+                    typeof showtime?.roomId === 'object'
+                      ? showtime.roomId
+                      : null
+                  const theater =
+                    typeof showtime?.theaterId === 'object'
+                      ? showtime.theaterId
+                      : null
+
+                  const movieTitle = movie?.title || 'Không xác định'
+                  console.log('Movie:', movie)
+                  const roomName = room?.name || 'Không xác định'
+                  const theaterName = theater?.name || 'Không xác định'
+
+                  return (
+                    <div
+                      key={booking._id}
+                      className='bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 hover:border-blue-600/50 transition-all'
+                    >
+                      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+                        {/* Movie Title */}
+                        <div className='flex items-start gap-3'>
+                          <div className='p-2 bg-blue-600/20 border border-blue-500/50 rounded-lg flex-shrink-0'>
+                            <FaTicketAlt className='text-blue-400 text-lg' />
+                          </div>
+                          <div className='min-w-0'>
+                            <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
+                              Phim
+                            </p>
+                            <p className='text-white font-semibold truncate'>
+                              {movieTitle}
+                            </p>
+                          </div>
                         </div>
-                        <div className='min-w-0'>
-                          <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
-                            Phim
-                          </p>
-                          <p className='text-white font-semibold truncate'>
-                            {booking.movieTitle}
-                          </p>
+
+                        {/* Theater & Room */}
+                        <div className='flex items-start gap-3'>
+                          <div className='p-2 bg-purple-600/20 border border-purple-500/50 rounded-lg flex-shrink-0'>
+                            <FaMapMarkerAlt className='text-purple-400 text-lg' />
+                          </div>
+                          <div className='min-w-0'>
+                            <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
+                              Rạp / Phòng
+                            </p>
+                            <p className='text-white font-semibold'>
+                              {theaterName}
+                            </p>
+                            {roomName && roomName !== 'Không xác định' && (
+                              <p className='text-gray-400 text-sm'>
+                                {roomName}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Date & Time */}
+                        <div className='flex items-start gap-3'>
+                          <div className='p-2 bg-cyan-600/20 border border-cyan-500/50 rounded-lg flex-shrink-0'>
+                            <FaCalendar className='text-cyan-400 text-lg' />
+                          </div>
+                          <div>
+                            <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
+                              Ngày / Giờ
+                            </p>
+                            <p className='text-white font-semibold'>
+                              {formatDate(
+                                booking.date || booking.showtimeId?.startTime,
+                              )}
+                            </p>
+                            <p className='text-gray-400 text-sm'>
+                              {formatTime(booking.showtimeId?.startTime)} -{' '}
+                              {formatTime(booking.showtimeId?.endTime)}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Seats & Status */}
+                        <div className='flex items-start gap-3'>
+                          <div className='p-2 bg-pink-600/20 border border-pink-500/50 rounded-lg flex-shrink-0'>
+                            <FaChair className='text-pink-400 text-lg' />
+                          </div>
+                          <div className='flex-1'>
+                            <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
+                              Ghế / Thanh toán
+                            </p>
+                            <p className='text-white font-semibold text-sm mb-2'>
+                              {booking.seats.join(', ')}
+                            </p>
+                            <span
+                              className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(
+                                booking.paymentStatus,
+                              )}`}
+                            >
+                              {getStatusLabel(booking.paymentStatus)}
+                            </span>
+                          </div>
                         </div>
                       </div>
 
-                      {/* Theater & Room */}
-                      <div className='flex items-start gap-3'>
-                        <div className='p-2 bg-purple-600/20 border border-purple-500/50 rounded-lg flex-shrink-0'>
-                          <FaMapMarkerAlt className='text-purple-400 text-lg' />
-                        </div>
-                        <div className='min-w-0'>
-                          <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
-                            Rạp / Phòng
-                          </p>
-                          <p className='text-white font-semibold'>
-                            {booking.theaterName}
-                          </p>
-                          <p className='text-gray-400 text-sm'>
-                            {booking.roomName}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Date & Time */}
-                      <div className='flex items-start gap-3'>
-                        <div className='p-2 bg-cyan-600/20 border border-cyan-500/50 rounded-lg flex-shrink-0'>
-                          <FaCalendar className='text-cyan-400 text-lg' />
-                        </div>
-                        <div>
-                          <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
-                            Ngày / Giờ
-                          </p>
-                          <p className='text-white font-semibold'>
-                            {formatDate(booking.date)}
-                          </p>
-                          <p className='text-gray-400 text-sm'>
-                            {formatTime(booking.startTime)} -{' '}
-                            {formatTime(booking.endTime)}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Seats & Status */}
-                      <div className='flex items-start gap-3'>
-                        <div className='p-2 bg-pink-600/20 border border-pink-500/50 rounded-lg flex-shrink-0'>
-                          <FaChair className='text-pink-400 text-lg' />
-                        </div>
-                        <div className='flex-1'>
-                          <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-1'>
-                            Ghế / Trạng thái
-                          </p>
-                          <p className='text-white font-semibold text-sm mb-2'>
-                            {booking.seats.join(', ')}
-                          </p>
-                          <span
-                            className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(
-                              booking.status,
-                            )}`}
-                          >
-                            {getStatusLabel(booking.status)}
+                      {/* Price Info */}
+                      <div className='mt-4 pt-4 border-t border-gray-700 flex items-center justify-between'>
+                        <p className='text-gray-400 text-sm'>
+                          Mã đơn:{' '}
+                          <span className='text-blue-400 font-mono font-bold'>
+                            {booking.bookingId || booking._id.slice(-8)}
                           </span>
-                        </div>
+                        </p>
+                        <p className='text-lg font-bold text-yellow-400'>
+                          {booking.totalPrice.toLocaleString('vi-VN')}đ
+                        </p>
                       </div>
-                    </div>
 
-                    {/* Price Info */}
-                    <div className='mt-4 pt-4 border-t border-gray-700 flex items-center justify-between'>
-                      <p className='text-gray-400 text-sm'>
-                        Mã đơn:{' '}
-                        <span className='text-blue-400 font-mono font-bold'>
-                          {booking.bookingId}
-                        </span>
-                      </p>
-                      <p className='text-lg font-bold text-yellow-400'>
-                        {booking.totalPrice.toLocaleString('vi-VN')}đ
-                      </p>
+                      {/* Shop Items (if any) */}
+                      {booking.shopItems && booking.shopItems.length > 0 && (
+                        <div className='mt-4 pt-4 border-t border-gray-700'>
+                          <p className='text-xs text-gray-400 uppercase tracking-wider font-bold mb-3'>
+                            Hàng bổ sung
+                          </p>
+                          <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+                            {booking.shopItems.map((item: any, idx: number) => (
+                              <div
+                                key={idx}
+                                className='text-sm text-gray-300 flex justify-between'
+                              >
+                                <span>
+                                  {item.itemId?.name || 'Sản phẩm'} x
+                                  {item.quantity}
+                                </span>
+                                <span className='text-yellow-400 font-semibold'>
+                                  {(item.price || 0).toLocaleString('vi-VN')}đ
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             )}
           </div>

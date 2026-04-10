@@ -13,28 +13,32 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   const user = useAppSelector(selectUser)
   const loading = useAppSelector(selectUserLoading)
-  const dispatch = useAppDispatch()
-  const hasCheckedSession = useRef(false)
-  const hasInitiatedRedirect = useRef(false)
+
+  // const dispatch = useAppDispatch()
+  // const hasCheckedSession = useRef(false)
+  // const hasInitiatedRedirect = useRef(false)
 
   const userRole = useMemo(() => user?.role, [user])
-  const isAuthorized = useMemo(() => {
-    if (!allowedRoles) return true
-    if (!userRole) return false
-    return allowedRoles.includes(userRole)
-  }, [allowedRoles, userRole])
+  // const isAuthorized = useMemo(() => {
+  //   if (!allowedRoles) return true
+  //   if (!userRole) return false
+  //   return allowedRoles.includes(userRole)
+  // }, [allowedRoles, userRole])
 
-  useEffect(() => {
-    if (
-      !user &&
-      !loading &&
-      hasCheckedSession.current &&
-      !hasInitiatedRedirect.current
-    ) {
-      hasInitiatedRedirect.current = true
-      dispatch(loginUser())
-    }
-  }, [dispatch, user, loading])
+  // useEffect(() => {
+  //   if (
+  //     !user &&
+  //     !loading &&
+  //     hasCheckedSession.current &&
+  //     !hasInitiatedRedirect.current
+  //   ) {
+  //     hasInitiatedRedirect.current = true
+  //     dispatch(loginUser())
+  //   }
+  // }, [dispatch, user, loading])
+
+  const isAuthorized =
+    !allowedRoles || (userRole && allowedRoles.includes(userRole))
 
   if (loading) {
     return (
@@ -45,11 +49,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   }
 
   if (!user) {
-    return (
-      <div className='text-center py-20 text-blue-normal'>
-        Đang chuyển hướng đến trang đăng nhập{' '}
-      </div>
-    )
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/login`
+    return null
   }
 
   if (allowedRoles && user && !isAuthorized) {
