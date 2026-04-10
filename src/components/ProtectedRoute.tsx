@@ -1,10 +1,9 @@
 // src/components/ProtectedRoute.tsx
 
-import React, { useEffect, useRef, useMemo } from 'react'
-import { useAppSelector, useAppDispatch } from '../store/hooks'
+import React, { useMemo } from 'react'
+import { useAppSelector } from '../store/hooks'
 import { selectUser, selectUserLoading } from '../store/userData/userSelector'
 import { Outlet, Navigate } from 'react-router-dom'
-import { loginUser } from '../store/userData/userThunk'
 
 interface ProtectedRouteProps {
   allowedRoles?: string[]
