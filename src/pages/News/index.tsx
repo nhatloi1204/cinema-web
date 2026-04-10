@@ -1,13 +1,10 @@
-import Carousel from '../../components/Carousel'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { fetchNews } from '../../store/newsData/newsThunk'
-import { fetchEvents } from '../../store/eventData/eventThunk'
 import {
   selectNews,
   selectNewsLoading,
 } from '../../store/newsData/newsSelector'
-import { selectEvents } from '../../store/eventData/eventSelector'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaNewspaper } from 'react-icons/fa'
 
@@ -16,18 +13,8 @@ function News() {
   const news = useAppSelector(selectNews)
   const loading = useAppSelector(selectNewsLoading)
 
-  // Events
-  const events = useAppSelector(selectEvents)
-  const slides = events.map(event => ({
-    id: event._id,
-    image: event.image,
-    title: event.title,
-    subtitle: event.title,
-  }))
-
   useEffect(() => {
     dispatch(fetchNews())
-    dispatch(fetchEvents())
   }, [dispatch])
 
   if (loading) {
