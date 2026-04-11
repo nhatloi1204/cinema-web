@@ -76,3 +76,35 @@ export const getBookingById = createAsyncThunk<
     )
   }
 })
+
+// CREATE BOOKING - for payment initialization
+interface CreateBookingPayload {
+  showtimeId: string
+  seats: string[]
+  shopItems?: any[]
+}
+
+interface CreateBookingResponse {
+  payment: {
+    clientSecret: string
+  }
+}
+
+export const createBooking = createAsyncThunk<
+  CreateBookingResponse,
+  CreateBookingPayload,
+  { rejectValue: string }
+>('bookings/createBooking', async (payload, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${API_URL}/user/bookings/create`, {
+      showtimeId: payload.showtimeId,
+      seats: payload.seats,
+      shopItems: payload.shopItems || [],
+    })
+    return response.data
+  } catch (error: any) {
+    return rejectWithValue(
+      error.response?.data?.message || 'Không thể tạo đơn đặt vé',
+    )
+  }
+})

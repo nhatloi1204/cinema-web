@@ -11,7 +11,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0()
   const user = useAppSelector(selectUser)
   const loading = useAppSelector(selectUserLoading)
 
@@ -21,12 +21,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
     !allowedRoles || (userRole && allowedRoles.includes(userRole))
 
   useEffect(() => {
-    if (!isAuthenticated && !loading) {
+    if (!isAuthenticated && !isLoading) {
       loginWithRedirect()
     }
-  }, [isAuthenticated, loading, loginWithRedirect])
+  }, [isAuthenticated, isLoading, loginWithRedirect])
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className='text-center py-20 text-blue-normal'>
         Đang kiểm tra phiên đăng nhập...{' '}
