@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 import { selectUser } from '../../store/userData/userSelector'
-import { logoutUser } from '../../store/userData/userThunk'
+import { useAuth0Actions } from '../../hooks/useAuth0Actions'
 import { FaSignOutAlt, FaUser, FaChevronDown, FaBars } from 'react-icons/fa'
 
 const AdminHeader: React.FC<{ onMenuClick?: () => void }> = ({
@@ -10,9 +9,8 @@ const AdminHeader: React.FC<{ onMenuClick?: () => void }> = ({
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
   const user = useAppSelector(selectUser)
+  const { logout } = useAuth0Actions()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,11 +26,8 @@ const AdminHeader: React.FC<{ onMenuClick?: () => void }> = ({
   }, [])
 
   const handleLogout = async () => {
-    // Dispatch logout thunk để clear backend session + set user = null
-    await dispatch(logoutUser())
     setIsDropdownOpen(false)
-    // Redirect về home
-    navigate('/')
+    await logout()
   }
 
   return (

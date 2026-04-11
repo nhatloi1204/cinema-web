@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 import logo from '../../assets/images/logo.png'
 import {
   FaBars,
@@ -10,29 +11,20 @@ import {
   FaChevronDown,
 } from 'react-icons/fa'
 import { pathKeys, pathNames } from '../../constants'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { loginUser, logoutUser } from '../../store/userData/userThunk'
-import {
-  selectUser,
-  // selectUserLoading,
-} from '../../store/userData/userSelector'
+import { useAppSelector } from '../../store/hooks'
+import { useAuth0Actions } from '../../hooks/useAuth0Actions'
+import { selectUser } from '../../store/userData/userSelector'
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuth0()
   const user = useAppSelector(selectUser)
+  const { login: handleLogin, logout: handleLogout } = useAuth0Actions()
   // const loading = useAppSelector(state => state.loading) // Commented out as it's unused
   const dropdownRef = useRef<HTMLDivElement>(null)
-
-  const handleLogin = () => dispatch(loginUser())
-  const handleLogout = async () => {
-    await dispatch(logoutUser())
-    setIsDropdownOpen(false)
-    navigate('/')
-  }
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -88,7 +80,7 @@ function NavBar() {
 
           {/* Desktop User Section */}
           <div className='hidden lg:flex items-center gap-4'>
-            {user ? (
+            {isAuthenticated && user ? (
               <div className='relative' ref={dropdownRef}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -134,7 +126,11 @@ function NavBar() {
                     <div className='my-2 border-t border-gray-200'></div>
 
                     <button
-                      onClick={handleLogout}
+                      onClick={() => {
+                        handleLogout()
+                        setIsDropdownOpen(false)
+                        navigate('/')
+                      }}
                       className='flex items-center gap-3 w-full px-4 py-2 text-red-600 hover:bg-red-50 transition-colors duration-200'
                     >
                       <FaSignOutAlt size={14} />
@@ -180,7 +176,7 @@ function NavBar() {
 
             {/* Mobile User Section */}
             <div className='pt-3 mt-3 border-t border-blue-light'>
-              {user ? (
+              {isAuthenticated && user ? (
                 <>
                   <div className='flex items-center gap-3 px-4 py-2 mb-2'>
                     <img
@@ -204,7 +200,11 @@ function NavBar() {
                   </Link>
 
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                      handleLogout()
+                      closeMenus()
+                      navigate('/')
+                    }}
                     className='flex items-center gap-2 w-full px-4 py-2 text-white hover:bg-red-600 rounded-lg transition-colors duration-200'
                   >
                     <FaSignOutAlt size={14} />

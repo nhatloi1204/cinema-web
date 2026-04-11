@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { fetchProfile, logoutUser, updateProfile } from './userThunk'
+import { fetchProfile, updateProfile } from './userThunk'
 import { User } from './userType'
 
 interface UserState {
@@ -41,21 +41,6 @@ const userSlice = createSlice({
         state.isInitialized = true
       })
       .addCase(fetchProfile.rejected, state => {
-        state.loading = false
-        state.user = null
-        state.isInitialized = true
-      })
-
-      // ===== LOGOUT =====
-      .addCase(logoutUser.pending, state => {
-        state.loading = true
-      })
-      .addCase(logoutUser.fulfilled, state => {
-        state.loading = false
-        state.user = null
-        state.isInitialized = true
-      })
-      .addCase(logoutUser.rejected, state => {
         state.loading = false
         state.user = null
         state.isInitialized = true

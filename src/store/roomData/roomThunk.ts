@@ -3,9 +3,6 @@ import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-// Config axios để tự động gửi cookies
-axios.defaults.withCredentials = true
-
 // Get all rooms
 export const fetchRooms = createAsyncThunk(
   'room/fetchRooms',

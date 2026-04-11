@@ -1,17 +1,13 @@
 import AppRoutes from './routes/AppRoutes'
+import { useAuth0Interceptor } from './hooks/useAuth0Interceptor'
 import { useInitializeApp } from './hooks/useInitializeApp'
-import { useAppDispatch } from './store/hooks'
-import { useEffect } from 'react'
-import { fetchProfile } from './store/userData/userThunk'
 
 function App() {
-  // Initialize app - auto fetch user profile khi app load
-  useInitializeApp()
-  const dispatch = useAppDispatch()
+  // Setup Auth0 axios interceptor (adds token to all requests)
+  useAuth0Interceptor()
 
-  useEffect(() => {
-    dispatch(fetchProfile())
-  }, [dispatch])
+  // Auto fetch user profile khi user authenticate
+  useInitializeApp()
 
   return (
     <>

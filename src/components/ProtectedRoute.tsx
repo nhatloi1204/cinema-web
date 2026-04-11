@@ -1,6 +1,7 @@
 // src/components/ProtectedRoute.tsx
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 import { useAppSelector } from '../store/hooks'
 import { selectUser, selectUserLoading } from '../store/userData/userSelector'
 import { Outlet, Navigate } from 'react-router-dom'
@@ -10,34 +11,20 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0()
   const user = useAppSelector(selectUser)
   const loading = useAppSelector(selectUserLoading)
 
-  // const dispatch = useAppDispatch()
-  // const hasCheckedSession = useRef(false)
-  // const hasInitiatedRedirect = useRef(false)
-
   const userRole = useMemo(() => user?.role, [user])
-  // const isAuthorized = useMemo(() => {
-  //   if (!allowedRoles) return true
-  //   if (!userRole) return false
-  //   return allowedRoles.includes(userRole)
-  // }, [allowedRoles, userRole])
-
-  // useEffect(() => {
-  //   if (
-  //     !user &&
-  //     !loading &&
-  //     hasCheckedSession.current &&
-  //     !hasInitiatedRedirect.current
-  //   ) {
-  //     hasInitiatedRedirect.current = true
-  //     dispatch(loginUser())
-  //   }
-  // }, [dispatch, user, loading])
 
   const isAuthorized =
     !allowedRoles || (userRole && allowedRoles.includes(userRole))
+
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      loginWithRedirect()
+    }
+  }, [isAuthenticated, loading, loginWithRedirect])
 
   if (loading) {
     return (
@@ -45,11 +32,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
         Đang kiểm tra phiên đăng nhập...{' '}
       </div>
     )
-  }
-
-  if (!user) {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/login`
-    return null
   }
 
   if (allowedRoles && user && !isAuthorized) {
