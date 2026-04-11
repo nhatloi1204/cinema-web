@@ -12,6 +12,8 @@ import {
   FaCheckCircle,
   FaExclamationTriangle,
 } from 'react-icons/fa'
+import { useAppDispatch } from '../../store/hooks'
+import { createBooking } from '../../store/bookingData/bookingThunk'
 import { Showtime } from '../../store/showtimeData/showtimeType'
 import { Movie } from '../../store/movieData/movieType'
 
@@ -52,44 +54,38 @@ export default function Payment() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  const dispatch = useAppDispatch()
+
   // Create booking and get client secret
   useEffect(() => {
-    const createBooking = async () => {
+    const initializePayment = async () => {
       try {
         setLoading(true)
         setError(null)
-        const apiUrl = import.meta.env.VITE_API_URL
 
-        const response = await fetch(`${apiUrl}/user/bookings/create`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify({
+        const result = await dispatch(
+          createBooking({
             showtimeId: state.showtime._id,
             seats: state.selectedSeats,
             shopItems: [],
           }),
-        })
+        )
 
-        if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.message || 'Không thể tạo đơn đặt vé')
+        if (createBooking.fulfilled.match(result)) {
+          setClientSecret(result.payload.payment.clientSecret)
+        } else {
+          setError(result.payload || 'Không thể tạo đơn đặt vé')
         }
-
-        const data = await response.json()
-        setClientSecret(data.payment.clientSecret)
       } catch (err) {
-        console.error('Error creating booking:', err)
+        console.error('Error initializing payment:', err)
         setError(err instanceof Error ? err.message : 'Lỗi khi tạo đơn đặt vé')
       } finally {
         setLoading(false)
       }
     }
 
-    createBooking()
-  }, [state])
+    initializePayment()
+  }, [state, dispatch])
 
   const options = clientSecret
     ? {
