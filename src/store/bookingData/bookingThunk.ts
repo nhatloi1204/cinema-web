@@ -11,7 +11,6 @@ const enrichShowtimeData = async (showtime: any) => {
 
     const response = await axios.get(
       `${API_URL}/public/showtimes/${showtime._id}`,
-      { withCredentials: true },
     )
     return response.data
   } catch (error) {
@@ -26,9 +25,7 @@ export const getUserBookings = createAsyncThunk<
   { rejectValue: string }
 >('bookings/getUserBookings', async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${API_URL}/user/bookings`, {
-      withCredentials: true,
-    })
+    const response = await axios.get(`${API_URL}/user/bookings`)
 
     const bookings = response.data
 
@@ -57,9 +54,7 @@ export const getBookingById = createAsyncThunk<
   { rejectValue: string }
 >('bookings/getBookingById', async (bookingId, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${API_URL}/user/bookings/${bookingId}`, {
-      withCredentials: true,
-    })
+    const response = await axios.get(`${API_URL}/user/bookings/${bookingId}`)
 
     const booking = response.data
 
