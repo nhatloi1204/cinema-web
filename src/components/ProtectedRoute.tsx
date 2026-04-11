@@ -3,7 +3,7 @@
 import React, { useMemo, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useAppSelector } from '../store/hooks'
-import { selectUser, selectUserLoading } from '../store/userData/userSelector'
+import { selectUser } from '../store/userData/userSelector'
 import { Outlet, Navigate } from 'react-router-dom'
 
 interface ProtectedRouteProps {
@@ -13,7 +13,6 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0()
   const user = useAppSelector(selectUser)
-  const loading = useAppSelector(selectUserLoading)
 
   const userRole = useMemo(() => user?.role, [user])
 
