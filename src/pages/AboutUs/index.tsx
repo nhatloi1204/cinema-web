@@ -1,7 +1,6 @@
 import { FaBuilding } from 'react-icons/fa'
 
 function AboutUs() {
-
   const brandValues = [
     {
       title: 'CÂU CHUYỆN THƯƠNG HIỆU',
@@ -93,13 +92,13 @@ function AboutUs() {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6'>
             <div className='rounded-2xl overflow-hidden'>
               <img
-                src='/src/assets/images/aboutUsPage/khongian.png'
+                src='https://res.cloudinary.com/dxz14apyl/image/upload/v1776138405/khongian_wgfwq6.png'
                 className='w-full h-40 md:h-56 lg:h-72 object-cover'
               />
             </div>
             <div className='rounded-2xl overflow-hidden'>
               <img
-                src='/src/assets/images/aboutUsPage/menumanhinh.png'
+                src='https://res.cloudinary.com/dxz14apyl/image/upload/v1776138406/menumanhinh_cre6hk.png'
                 className='w-full h-40 md:h-56 lg:h-72 object-cover'
               />
             </div>

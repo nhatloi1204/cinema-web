@@ -8,6 +8,9 @@ import {
   FaClock,
   FaImage,
   FaChevronDown,
+  FaShoppingCart,
+  FaNewspaper,
+  FaCalendar,
 } from 'react-icons/fa'
 
 const AdminSidebar: React.FC = () => {
@@ -49,17 +52,21 @@ const AdminSidebar: React.FC = () => {
           path: pathKeys.ADMIN_BANNERS,
           icon: FaImage,
         },
-        // Placeholder for News and Events
-        // {
-        //   name: 'Quản lý Tin Tức',
-        //   path: 'news',
-        //   icon: FaNewspaper,
-        // },
-        // {
-        //   name: 'Quản lý Sự Kiện',
-        //   path: 'events',
-        //   icon: FaCalendar,
-        // },
+        {
+          name: pathNames.ADMIN_SHOP,
+          path: pathKeys.ADMIN_SHOP,
+          icon: FaShoppingCart,
+        },
+        {
+          name: pathNames.ADMIN_NEWS,
+          path: pathKeys.ADMIN_NEWS,
+          icon: FaNewspaper,
+        },
+        {
+          name: pathNames.ADMIN_EVENTS,
+          path: pathKeys.ADMIN_EVENTS,
+          icon: FaCalendar,
+        },
       ],
     },
   ]
