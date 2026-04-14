@@ -8,7 +8,7 @@ const AboutUsSection: React.FC = () => {
       <div className='flex flex-col lg:flex-row gap-3 md:gap-4 lg:gap-6'>
         {/* Image */}
         <img
-          src='/src/assets/images/aboutUs1.png'
+          src='https://res.cloudinary.com/dxz14apyl/image/upload/v1776138552/aboutUs1_hkt2fq.png'
           alt='aboutUs1'
           className='h-40 md:h-64 lg:h-80 w-full lg:w-1/2 object-cover rounded-lg md:rounded-2xl'
         />

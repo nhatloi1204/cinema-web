@@ -9,6 +9,11 @@ const ShowtimeManagement = lazy(
   () => import('../pages/Admin/ShowtimeManagement'),
 )
 const BannerManagement = lazy(() => import('../pages/Admin/BannerManagement'))
+const ShopItemManagement = lazy(
+  () => import('../pages/Admin/ShopItemManagement'),
+)
+const NewsManagement = lazy(() => import('../pages/Admin/NewsManagement'))
+const EventManagement = lazy(() => import('../pages/Admin/EventManagement'))
 
 const adminRoutes = [
   {
@@ -40,6 +45,21 @@ const adminRoutes = [
     path: pathKeys.ADMIN_BANNERS,
     title: pathNames.ADMIN_BANNERS,
     component: BannerManagement,
+  },
+  {
+    path: pathKeys.ADMIN_SHOP,
+    title: pathNames.ADMIN_SHOP,
+    component: ShopItemManagement,
+  },
+  {
+    path: pathKeys.ADMIN_NEWS,
+    title: pathNames.ADMIN_NEWS,
+    component: NewsManagement,
+  },
+  {
+    path: pathKeys.ADMIN_EVENTS,
+    title: pathNames.ADMIN_EVENTS,
+    component: EventManagement,
   },
 ]
 

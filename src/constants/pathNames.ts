@@ -23,6 +23,9 @@ const pathNames = {
   ADMIN_MOVIES: 'Quản lý Phim',
   ADMIN_SHOWTIMES: 'Quản lý Suất Chiếu',
   ADMIN_BANNERS: 'Quản lý Banner',
+  ADMIN_SHOP: 'Quản lý Sản Phẩm',
+  ADMIN_NEWS: 'Quản lý Tin Tức',
+  ADMIN_EVENTS: 'Quản lý Sự Kiện',
 
   NOT_FOUND: '404 - Not Found',
 }

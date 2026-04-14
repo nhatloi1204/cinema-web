@@ -20,6 +20,9 @@ const pathKeys = {
   ADMIN_MOVIES: 'movies',
   ADMIN_SHOWTIMES: 'showtimes',
   ADMIN_BANNERS: 'banners',
+  ADMIN_SHOP: 'shop-items',
+  ADMIN_NEWS: 'news',
+  ADMIN_EVENTS: 'events',
 
   // ADMIN_DASHBOARD: "/admin/dashboard",
   // ADMIN_USERS: "/admin/users",
