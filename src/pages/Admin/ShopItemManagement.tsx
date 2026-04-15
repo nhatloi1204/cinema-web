@@ -250,7 +250,7 @@ const ShopItemManagement: React.FC = () => {
                       {item.description}
                     </td>
                     <td className='px-6 py-4 text-gray-600 font-semibold'>
-                      {item.price.toLocaleString('vi-VN')} VNĐ
+                      {(item.price || 0).toLocaleString('vi-VN')} VNĐ
                     </td>
                     <td className='px-6 py-4'>
                       <div className='flex justify-center gap-3'>
@@ -310,7 +310,7 @@ const ShopItemManagement: React.FC = () => {
               </p>
               <div className='mb-3'>
                 <span className='text-sm font-semibold text-blue-normal'>
-                  {item.price.toLocaleString('vi-VN')} VNĐ
+                  {(item.price || 0).toLocaleString('vi-VN')} VNĐ
                 </span>
               </div>
               <div className='flex gap-2'>
