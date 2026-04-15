@@ -39,8 +39,8 @@ const ShopItemManagement: React.FC = () => {
 
   const filteredItems = shopItems.filter(
     item =>
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchTerm.toLowerCase()),
+      (item.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (item.description || '').toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
   const handleOpenAddModal = () => {
