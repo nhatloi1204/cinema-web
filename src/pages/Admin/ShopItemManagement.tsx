@@ -136,11 +136,11 @@ const ShopItemManagement: React.FC = () => {
     setIsEditMode(true)
     setEditingItem(item)
     setImageFile(null)
-    setImagePreview(item.image)
+    setImagePreview(item.image || '')
     setFormData({
-      name: item.name,
-      description: item.description,
-      price: item.price.toString(),
+      name: item.name || '',
+      description: item.description || '',
+      price: ((item.price) || 0).toString(),
     })
     setIsModalOpen(true)
   }
@@ -238,16 +238,16 @@ const ShopItemManagement: React.FC = () => {
                   >
                     <td className='px-6 py-4'>
                       <img
-                        src={item.image}
-                        alt={item.name}
+                        src={item.image || ''}
+                        alt={item.name || ''}
                         className='w-16 h-12 object-cover rounded'
                       />
                     </td>
                     <td className='px-6 py-4 font-semibold text-gray-800'>
-                      {item.name}
+                      {item.name || ''}
                     </td>
                     <td className='px-6 py-4 text-gray-600 max-w-xs truncate'>
-                      {item.description}
+                      {item.description || ''}
                     </td>
                     <td className='px-6 py-4 text-gray-600 font-semibold'>
                       {(item.price || 0).toLocaleString('vi-VN')} VNĐ
@@ -300,13 +300,13 @@ const ShopItemManagement: React.FC = () => {
               className='bg-white p-4 rounded-lg shadow-md border border-gray-200'
             >
               <img
-                src={item.image}
-                alt={item.name}
+                src={item.image || ''}
+                alt={item.name || ''}
                 className='w-full h-40 object-cover rounded-lg mb-3'
               />
-              <h3 className='font-semibold text-gray-800 mb-1'>{item.name}</h3>
+              <h3 className='font-semibold text-gray-800 mb-1'>{item.name || ''}</h3>
               <p className='text-sm text-gray-600 mb-2 line-clamp-2'>
-                {item.description}
+                {item.description || ''}
               </p>
               <div className='mb-3'>
                 <span className='text-sm font-semibold text-blue-normal'>
